@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yash Rathore -- SOC Analyst</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&family=Fraunces:ital,wght@0,900;1,300;1,700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0c0c0e;
+  --bg2:#111115;
+  --surface:#16161c;
+  --surface2:#1d1d25;
+  --border:#2a2a35;
+  --border-light:#383845;
+  --w:#f0f0f5;
+  --w2:#a8a8b8;
+  --w3:#5a5a6e;
+  --accent:#e8e8ff;
+  --hi:#ffffff;
+  --gold:#c8a96e;
+  --gold2:rgba(200,169,110,0.12);
+}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--w);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;cursor:none;
+}
+
+/* ── CURSOR ─────────────────────────── */
+#cur{
+  position:fixed;z-index:9999;pointer-events:none;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--hi);
+  transform:translate(-50%,-50%);
+  transition:width .15s,height .15s,background .2s;
+  will-change:transform;
+}
+#cur-ring{
+  position:fixed;z-index:9998;pointer-events:none;
+  width:32px;height:32px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.25);
+  transform:translate(-50%,-50%);
+  will-change:transform;
+  transition:width .2s,height .2s,border-color .2s;
+}
+body:has(a:hover) #cur,body:has(button:hover) #cur{width:14px;height:14px;background:var(--gold);}
+body:has(a:hover) #cur-ring,body:has(button:hover) #cur-ring{width:50px;height:50px;border-color:var(--gold);}
+
+/* ── NOISE TEXTURE ──────────────────── */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  opacity:0.025;mix-blend-mode:overlay;
+}
+
+/* ── NAV ────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:22px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+  transition:background .4s,border-color .4s;
+}
+nav.scrolled{
+  background:rgba(12,12,14,0.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:'Fraunces',serif;
+  font-size:1.1rem;font-weight:900;
+  color:var(--hi);letter-spacing:-0.5px;
+}
+.nav-logo span{color:var(--gold);}
+.nav-links{display:flex;gap:36px;}
+.nav-links a{
+  font-family:'DM Mono',monospace;
+  font-size:0.65rem;color:var(--w3);
+  text-decoration:none;letter-spacing:2px;
+  text-transform:uppercase;
+  transition:color .25s;
+}
+.nav-links a:hover{color:var(--hi);}
+
+/* ── CANVAS ─────────────────────────── */
+#c{position:fixed;inset:0;z-index:0;opacity:0.35;}
+
+/* ── SECTIONS ───────────────────────── */
+section{position:relative;z-index:1;}
+
+/* ── HERO ───────────────────────────── */
+#hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 60px 90px;
+  overflow:hidden;
+}
+.hero-eyebrow{
+  font-family:'DM Mono',monospace;
+  font-size:0.63rem;color:var(--w3);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:28px;
+  opacity:0;animation:rise .8s .1s forwards;
+}
+.hero-name{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(5rem,13vw,13rem);
+  line-height:.88;
+  letter-spacing:-4px;
+  margin-bottom:0;
+  overflow:hidden;
+}
+.hero-name .line{
+  display:block;overflow:hidden;
+}
+.hero-name .line span{
+  display:block;
+  opacity:0;transform:translateY(110%);
+  animation:slideUp .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-name .line:nth-child(1) span{animation-delay:.2s;}
+.hero-name .line:nth-child(2) span{animation-delay:.35s;color:transparent;-webkit-text-stroke:1px rgba(240,240,245,0.3);}
+.hero-divider{
+  display:flex;align-items:center;gap:24px;margin:40px 0;
+  opacity:0;animation:rise .8s .7s forwards;
+}
+.hero-divider-line{flex:1;height:1px;background:var(--border);}
+.hero-role{
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;color:var(--w3);
+  letter-spacing:3px;text-transform:uppercase;
+  white-space:nowrap;
+}
+.typed-cursor{color:var(--gold);animation:blink 1s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-bottom{
+  display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:32px;
+  opacity:0;animation:rise .8s .85s forwards;
+}
+.hero-desc{
+  max-width:480px;
+  font-size:1rem;line-height:1.8;
+  color:var(--w2);font-weight:300;
+}
+.hero-stats{display:flex;gap:40px;flex-wrap:wrap;}
+.stat-num{
+  font-family:'Fraunces',serif;
+  font-size:2.8rem;font-weight:900;
+  color:var(--hi);line-height:1;
+}
+.stat-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-top:4px;
+}
+.hero-cta{
+  display:flex;gap:14px;flex-wrap:wrap;
+  margin-top:20px;
+  opacity:0;animation:rise .8s 1.05s forwards;
+}
+.btn-a{
+  padding:13px 28px;
+  background:var(--hi);color:var(--bg);
+  font-family:'DM Mono',monospace;
+  font-size:0.68rem;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;border:none;cursor:pointer;
+  transition:background .25s,transform .2s;
+}
+.btn-a:hover{background:var(--gold);transform:translateY(-2px);}
+.btn-b{
+  padding:13px 28px;
+  background:transparent;color:var(--w);
+  font-family:'DM Mono',monospace;
+  font-size:0.68rem;font-weight:500;
+  letter-spacing:2px;text-transform:uppercase;
+  text-decoration:none;border:1px solid var(--border-light);cursor:pointer;
+  transition:border-color .25s,color .25s,transform .2s;
+}
+.btn-b:hover{border-color:var(--hi);transform:translateY(-2px);}
+
+/* ── MARQUEE ────────────────────────── */
+.marquee-bar{
+  position:relative;z-index:1;
+  border-top:1px solid var(--border);
+  border-bottom:1px solid var(--border);
+  padding:13px 0;overflow:hidden;
+  background:var(--bg2);
+}
+.marquee-inner{
+  display:inline-flex;gap:56px;white-space:nowrap;
+  animation:scroll 35s linear infinite;
+}
+.marquee-inner span{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;color:var(--w3);
+  letter-spacing:3px;text-transform:uppercase;
+}
+.marquee-inner .sep{color:var(--gold);}
+@keyframes scroll{0%{transform:translateX(0);}100%{transform:translateX(-50%)}}
+
+/* ── SHARED SECTION STYLES ──────────── */
+.sec-pad{padding:130px 60px;}
+.sec-tag{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;color:var(--w3);
+  letter-spacing:4px;text-transform:uppercase;
+  margin-bottom:20px;
+}
+.sec-head{
+  font-family:'Fraunces',serif;
+  font-weight:900;
+  font-size:clamp(2.8rem,6vw,5.5rem);
+  line-height:.92;
+  letter-spacing:-2px;
+  margin-bottom:64px;
+}
+.sec-head em{
+  font-style:italic;font-weight:300;
+  color:transparent;-webkit-text-stroke:1px var(--border-light);
+}
+
+/* ── STORY / TIMELINE ───────────────── */
+#story{background:var(--bg);}
+.tl{position:relative;padding-left:48px;max-width:780px;}
+.tl::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;
+  width:1px;background:linear-gradient(to bottom,transparent,var(--border) 8%,var(--border) 92%,transparent);
+}
+.tl-item{
+  position:relative;margin-bottom:72px;
+  opacity:0;transform:translateX(-24px);
+  transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);
+}
+.tl-item.in{opacity:1;transform:translateX(0);}
+.tl-dot{
+  position:absolute;left:-52px;top:8px;
+  width:9px;height:9px;border-radius:50%;
+  background:var(--border-light);
+  border:2px solid var(--bg);
+  transition:background .3s,box-shadow .3s;
+}
+.tl-item.in .tl-dot{background:var(--hi);}
+.tl-item.award.in .tl-dot{background:var(--gold);box-shadow:0 0 16px rgba(200,169,110,0.5);}
+.tl-date{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;color:var(--w3);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.tl-title{
+  font-family:'Fraunces',serif;
+  font-size:1.45rem;font-weight:700;
+  margin-bottom:10px;line-height:1.2;
+}
+.tl-body{
+  font-size:0.95rem;line-height:1.85;
+  color:var(--w2);font-weight:300;
+}
+.tl-badge{
+  display:inline-block;margin-top:14px;
+  padding:4px 12px;
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;letter-spacing:2px;text-transform:uppercase;
+  border:1px solid var(--gold);color:var(--gold);
+  background:var(--gold2);
+}
+
+/* ── HACKATHONS ─────────────────────── */
+#hackathons{background:var(--bg2);}
+.hack-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.hack-card{
+  background:var(--bg2);
+  padding:36px 32px;
+  position:relative;overflow:hidden;
+  opacity:0;transform:translateY(20px);
+  transition:opacity .6s,transform .6s,background .3s;
+}
+.hack-card.in{opacity:1;transform:translateY(0);}
+.hack-card:hover{background:var(--surface);}
+.hack-card::after{
+  content:'';position:absolute;
+  bottom:0;left:0;right:0;height:2px;
+  background:var(--gold);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s cubic-bezier(.16,1,.3,1);
+}
+.hack-card:hover::after{transform:scaleX(1);}
+.hack-num{
+  font-family:'Fraunces',serif;
+  font-size:3.5rem;font-weight:900;
+  color:var(--border);line-height:1;
+  margin-bottom:20px;
+  transition:color .3s;
+}
+.hack-card:hover .hack-num{color:var(--surface2);}
+.hack-name{
+  font-family:'DM Sans',sans-serif;
+  font-weight:700;font-size:1.05rem;
+  margin-bottom:5px;
+}
+.hack-loc{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.hack-desc{font-size:0.88rem;line-height:1.7;color:var(--w2);font-weight:300;margin-bottom:16px;}
+.hack-win{
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--gold);border:1px solid rgba(200,169,110,0.35);
+  padding:5px 12px;background:var(--gold2);
+}
+
+/* ── SKILLS ─────────────────────────── */
+#skills{background:var(--bg);}
+.sk-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.sk-cat{
+  background:var(--bg);padding:28px 24px;
+  opacity:0;transform:scale(.97);
+  transition:opacity .5s,transform .5s,background .25s;
+}
+.sk-cat.in{opacity:1;transform:scale(1);}
+.sk-cat:hover{background:var(--surface);}
+.sk-icon{font-size:1.2rem;margin-bottom:10px;}
+.sk-name{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--gold);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:14px;
+}
+.sk-tags{display:flex;flex-wrap:wrap;gap:6px;}
+.sk-tag{
+  padding:4px 10px;
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;letter-spacing:.5px;
+  color:var(--w3);border:1px solid var(--border);
+  transition:color .2s,border-color .2s,background .2s;cursor:default;
+}
+.sk-tag:hover{color:var(--hi);border-color:var(--border-light);background:var(--surface);}
+
+/* ── PROJECTS ───────────────────────── */
+#projects{background:var(--bg2);}
+.proj-list{display:flex;flex-direction:column;gap:2px;}
+.proj-card{
+  background:var(--bg2);
+  border:1px solid var(--border);
+  border-left:3px solid transparent;
+  padding:48px 52px;
+  display:grid;grid-template-columns:1fr 220px;
+  gap:48px;align-items:start;
+  opacity:0;transform:translateY(16px);
+  transition:opacity .6s,transform .6s,border-color .3s,background .3s;
+  margin-bottom:2px;
+}
+.proj-card.in{opacity:1;transform:translateY(0);}
+.proj-card:hover{
+  background:var(--surface);
+  border-color:var(--border-light);
+  border-left-color:var(--gold);
+}
+.proj-type{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);
+  letter-spacing:3px;text-transform:uppercase;
+  margin-bottom:12px;
+}
+.proj-name{
+  font-family:'Fraunces',serif;
+  font-size:2.2rem;font-weight:900;
+  line-height:1;margin-bottom:16px;
+  letter-spacing:-1px;
+}
+.proj-desc{
+  font-size:0.93rem;line-height:1.85;
+  color:var(--w2);font-weight:300;
+  margin-bottom:22px;max-width:640px;
+}
+.proj-tech{display:flex;flex-wrap:wrap;gap:7px;}
+.proj-tech span{
+  padding:3px 9px;
+  font-family:'DM Mono',monospace;
+  font-size:0.57rem;letter-spacing:.5px;
+  color:var(--w3);border:1px solid var(--border);
+}
+.proj-side{display:flex;flex-direction:column;gap:14px;}
+.proj-badge{
+  padding:10px 16px;
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;letter-spacing:2px;text-transform:uppercase;
+  color:var(--w3);border:1px solid var(--border);
+  text-align:center;
+}
+.proj-pillars{display:flex;flex-direction:column;gap:5px;}
+.proj-pillar{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);letter-spacing:1px;
+  padding:4px 10px;
+  border-right:2px solid var(--border-light);
+  text-align:right;
+  transition:border-color .2s,color .2s;
+}
+.proj-card:hover .proj-pillar{border-color:var(--gold);color:var(--w2);}
+
+/* ── EXPERIENCE ─────────────────────── */
+#experience{background:var(--bg);}
+.exp-wrap{
+  border:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.exp-head{
+  padding:48px 52px;
+  border-bottom:1px solid var(--border);
+  display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:20px;
+}
+.exp-company{
+  font-family:'Fraunces',serif;
+  font-size:3rem;font-weight:900;
+  letter-spacing:-2px;color:var(--hi);
+}
+.exp-meta{text-align:right;}
+.exp-title{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;
+}
+.exp-period{
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;color:var(--w2);
+  letter-spacing:1px;
+  padding:8px 16px;border:1px solid var(--border);
+}
+.exp-body{padding:48px 52px;}
+.exp-roles{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+  margin-bottom:40px;
+}
+.exp-role{background:var(--bg);padding:24px 20px;}
+.exp-role-name{
+  font-family:'DM Sans',sans-serif;
+  font-weight:700;font-size:0.88rem;
+  margin-bottom:8px;color:var(--hi);
+}
+.exp-role-desc{
+  font-size:0.82rem;line-height:1.65;
+  color:var(--w2);font-weight:300;
+}
+.exp-nums{
+  display:grid;grid-template-columns:repeat(5,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.exp-num{background:var(--bg);padding:22px 20px;}
+.exp-num-val{
+  font-family:'Fraunces',serif;
+  font-size:2rem;font-weight:900;
+  color:var(--gold);line-height:1;margin-bottom:4px;
+}
+.exp-num-label{
+  font-family:'DM Mono',monospace;
+  font-size:0.55rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;
+}
+.exp-bg-text{
+  position:absolute;right:-30px;top:50%;
+  transform:translateY(-50%) rotate(90deg);
+  font-family:'Fraunces',serif;
+  font-size:10rem;font-weight:900;
+  color:rgba(255,255,255,0.015);
+  white-space:nowrap;pointer-events:none;
+  letter-spacing:-4px;
+}
+.exp-spacer{height:24px;}
+
+/* ── CERTIFICATIONS ─────────────────── */
+#certs{background:var(--bg2);}
+.cert-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:1px;background:var(--border);
+  border:1px solid var(--border);
+}
+.cert-item{
+  background:var(--bg2);padding:28px 32px;
+  display:flex;align-items:center;gap:20px;
+  opacity:0;transform:translateY(12px);
+  transition:opacity .5s,transform .5s,background .25s;
+}
+.cert-item.in{opacity:1;transform:translateY(0);}
+.cert-item:hover{background:var(--surface);}
+.cert-icon{
+  width:42px;height:42px;
+  border:1px solid var(--border-light);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+  transition:border-color .25s;
+}
+.cert-item:hover .cert-icon{border-color:var(--gold);}
+.cert-name{
+  font-family:'DM Sans',sans-serif;
+  font-weight:500;font-size:0.92rem;
+  color:var(--hi);margin-bottom:3px;
+}
+.cert-issuer{
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;
+}
+
+/* ── CONTACT ────────────────────────── */
+#contact{
+  background:var(--bg);
+  border-top:1px solid var(--border);
+}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;
+}
+.contact-left p{
+  font-size:1rem;line-height:1.9;
+  color:var(--w2);font-weight:300;
+  margin-bottom:32px;max-width:480px;
+}
+.contact-links{display:flex;flex-direction:column;gap:2px;}
+.c-link{
+  display:flex;align-items:center;gap:16px;
+  text-decoration:none;padding:18px 22px;
+  border:1px solid var(--border);
+  color:var(--w2);
+  font-family:'DM Mono',monospace;
+  font-size:0.7rem;letter-spacing:1px;
+  transition:all .25s;
+  background:var(--bg2);
+}
+.c-link:hover{
+  color:var(--hi);
+  border-color:var(--border-light);
+  background:var(--surface);
+  padding-left:28px;
+}
+.c-link-ico{font-size:0.9rem;opacity:.6;}
+.contact-right{display:flex;flex-direction:column;justify-content:center;gap:24px;}
+.avail-card{
+  padding:28px 32px;
+  border:1px solid rgba(200,169,110,0.3);
+  background:var(--gold2);
+}
+.avail-top{
+  display:flex;align-items:center;gap:10px;margin-bottom:12px;
+}
+.avail-dot{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--gold);
+  animation:glow 2.5s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{box-shadow:0 0 0 0 rgba(200,169,110,.5);}
+  50%{box-shadow:0 0 0 8px rgba(200,169,110,0);}
+}
+.avail-status{
+  font-family:'DM Mono',monospace;
+  font-size:0.62rem;color:var(--gold);
+  letter-spacing:3px;text-transform:uppercase;
+}
+.avail-body{
+  font-size:0.9rem;line-height:1.75;
+  color:var(--w2);font-weight:300;
+}
+.contact-quote{
+  padding-left:20px;
+  border-left:2px solid var(--border-light);
+}
+.contact-quote p{
+  font-family:'Fraunces',serif;
+  font-style:italic;font-weight:300;
+  font-size:1.25rem;line-height:1.55;
+  color:var(--w2);
+}
+.contact-quote cite{
+  display:block;margin-top:10px;
+  font-family:'DM Mono',monospace;
+  font-size:0.58rem;color:var(--w3);
+  letter-spacing:2px;text-transform:uppercase;
+  font-style:normal;
+}
+
+/* ── FOOTER ─────────────────────────── */
+footer{
+  position:relative;z-index:1;
+  background:var(--bg);
+  border-top:1px solid var(--border);
+  padding:28px 60px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.foot-copy{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;color:var(--w3);letter-spacing:2px;
+}
+.foot-note{
+  font-family:'DM Mono',monospace;
+  font-size:0.6rem;color:var(--w3);letter-spacing:1px;
+}
+.foot-note span{color:var(--gold);}
+
+/* ── SCROLL PROGRESS ────────────────── */
+#prog{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--gold);z-index:300;
+  transition:width .05s;width:0;
+}
+
+/* ── ANIMATIONS ─────────────────────── */
+@keyframes rise{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+@keyframes slideUp{from{opacity:0;transform:translateY(110%);}to{opacity:1;transform:translateY(0);}}
+
+/* ── SCROLL EFFECTS ─────────────────── */
+.reveal{
+  opacity:0;transform:translateY(30px);
+  transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);
+}
+.reveal.in{opacity:1;transform:translateY(0);}
+
+/* ── MOBILE ─────────────────────────── */
+@media(max-width:900px){
+  nav{padding:18px 24px;}
+  .nav-links{display:none;}
+  #hero{padding:0 24px 70px;}
+  .sec-pad{padding:80px 24px;}
+  .hack-grid{grid-template-columns:1fr;}
+  .sk-grid{grid-template-columns:repeat(2,1fr);}
+  .proj-card{grid-template-columns:1fr;padding:28px 24px;}
+  .proj-side{align-items:flex-start;}
+  .exp-roles{grid-template-columns:1fr;}
+  .exp-nums{grid-template-columns:repeat(3,1fr);}
+  .contact-grid{grid-template-columns:1fr;gap:40px;}
+  .cert-grid{grid-template-columns:1fr;}
+  footer{padding:22px 24px;flex-direction:column;gap:10px;text-align:center;}
+  .hero-stats{gap:24px;}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="c"></canvas>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-logo">Y<span>.</span>Rathore</div>
+  <div class="nav-links">
+    <a href="#story">Story</a>
+    <a href="#hackathons">Hackathons</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#experience">Experience</a>
+    <a href="#certs">Certs</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow">BTech Cybersecurity · Poornima University, Jaipur · 2022–2026</div>
+  <h1 class="hero-name">
+    <span class="line"><span>Yash</span></span>
+    <span class="line"><span>Rathore</span></span>
+  </h1>
+  <div class="hero-divider">
+    <div class="hero-divider-line"></div>
+    <div class="hero-role"><span id="typed"></span><span class="typed-cursor">|</span></div>
+    <div class="hero-divider-line"></div>
+  </div>
+  <div class="hero-bottom">
+    <p class="hero-desc">
+      From not knowing what a hackathon was — to winning bounties on three continents, 
+      building production SOC platforms, and competing at IIT Madras. 
+      Cybersecurity isn't just a field. It's a lens.
+    </p>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num" data-n="4">0</div>
+        <div class="stat-label">Hackathons</div>
+      </div>
+      <div>
+        <div class="stat-num" data-n="750">0</div>
+        <div class="stat-label">$ Bounty Won</div>
+      </div>
+      <div>
+        <div class="stat-num" data-n="9">0</div>
+        <div class="stat-label">Months at Gardiyan</div>
+      </div>
+      <div>
+        <div class="stat-num" data-n="2">0</div>
+        <div class="stat-label">Prod Projects</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn-a">View Projects</a>
+    <a href="#contact" class="btn-b">Connect</a>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-bar">
+  <div class="marquee-inner">
+    <span>Threat Detection</span><span class="sep">·</span>
+    <span>SIEM / ELK</span><span class="sep">·</span>
+    <span>Microsoft Sentinel</span><span class="sep">·</span>
+    <span>Blockchain</span><span class="sep">·</span>
+    <span>Zero Trust</span><span class="sep">·</span>
+    <span>SOC Engineering</span><span class="sep">·</span>
+    <span>AWS GuardDuty</span><span class="sep">·</span>
+    <span>Incident Response</span><span class="sep">·</span>
+    <span>IIT Madras Finalist</span><span class="sep">·</span>
+    <span>MITRE ATT&CK</span><span class="sep">·</span>
+    <span>Kubernetes</span><span class="sep">·</span>
+    <span>UEBA</span><span class="sep">·</span>
+    <!-- dup -->
+    <span>Threat Detection</span><span class="sep">·</span>
+    <span>SIEM / ELK</span><span class="sep">·</span>
+    <span>Microsoft Sentinel</span><span class="sep">·</span>
+    <span>Blockchain</span><span class="sep">·</span>
+    <span>Zero Trust</span><span class="sep">·</span>
+    <span>SOC Engineering</span><span class="sep">·</span>
+    <span>AWS GuardDuty</span><span class="sep">·</span>
+    <span>Incident Response</span><span class="sep">·</span>
+    <span>IIT Madras Finalist</span><span class="sep">·</span>
+    <span>MITRE ATT&CK</span><span class="sep">·</span>
+    <span>Kubernetes</span><span class="sep">·</span>
+    <span>UEBA</span><span class="sep">·</span>
+  </div>
+</div>
+
+<!-- STORY -->
+<section id="story" class="sec-pad">
+  <div class="sec-tag">// 01 — Origin Story</div>
+  <h2 class="sec-head">The <em>Journey</em><br>That Built This</h2>
+  <div class="tl">
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">September 2022</div>
+      <div class="tl-title">Day One — Poornima University, Jaipur</div>
+      <p class="tl-body">Started BTech in Cybersecurity. Went the route everyone goes — classes, textbooks, the standard path. But if everyone's running the same race, what's actually the edge? That question wouldn't stay quiet.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">2023</div>
+      <div class="tl-title">A Word I Didn't Know: Hackathon</div>
+      <p class="tl-body">Came across something called a hackathon. Didn't know exactly what it meant — just knew it was fast, intense, and had something to do with building under pressure. Blockchain fascinated me at the same time. The idea of a trustless system felt like the logical future of security.</p>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">March 2024</div>
+      <div class="tl-title">First Hackathon — Udaipur</div>
+      <p class="tl-body">Walked in knowing nothing. No idea about the format, the rules, what to build. But something lit up in that room — the energy, the pace, the people all-in on something. Left knowing this was exactly what I needed more of.</p>
+      <div class="tl-badge">First hackathon complete</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">July 2024</div>
+      <div class="tl-title">Blockchain Hackathon — Jaipur</div>
+      <p class="tl-body">Two-day blockchain event in my own city. Still learning, still figuring things out — but it made me realize the limit wasn't ability. It was effort. The gap was closeable.</p>
+    </div>
+
+    <div class="tl-item award">
+      <div class="tl-dot"></div>
+      <div class="tl-date">4–9 August 2024</div>
+      <div class="tl-title">Hacker House Goa — Selected & Invited</div>
+      <p class="tl-body">Found it on Devfolio. To get in, you had to build a real project on a sponsor blockchain — built on DIAM, got shortlisted and invited. Five days of residential hacking, late-night coding, real team dynamics, real networking. Didn't place — but learned more than any course could give.</p>
+      <div class="tl-badge">Best hackathon experience of my life</div>
+    </div>
+
+    <div class="tl-item award">
+      <div class="tl-dot"></div>
+      <div class="tl-date">September 2024</div>
+      <div class="tl-title">Gurgaon Hackathon — First Bounty Won · $400</div>
+      <p class="tl-body">Applied using the Goa project. Got shortlisted. Built a blockchain lending platform in Solidity — smart contracts with security logic embedded. Landed Top 10 out of 150+ teams, won $400 for best use of the sponsor blockchain. But more than the money — the company said they'd use the code in their own platform. That feeling? Indescribable.</p>
+      <div class="tl-badge">$400 bounty · Top 10 / 150+ teams · Code adopted by sponsor</div>
+    </div>
+
+    <div class="tl-item award">
+      <div class="tl-dot"></div>
+      <div class="tl-date">December 2024</div>
+      <div class="tl-title">Bangalore Hackathon — Second Bounty Won · $350</div>
+      <p class="tl-body">36-hour event on Agoric blockchain. Built a cross-chain lending platform — deposit any asset as collateral, borrow in a different currency with automatic conversion via orchestration, minimal gas fees. Won $350. Two bounties in a row. The pattern was becoming undeniable.</p>
+      <div class="tl-badge">$350 bounty · Cross-chain lending platform</div>
+    </div>
+
+    <div class="tl-item award">
+      <div class="tl-dot"></div>
+      <div class="tl-date">January 2025</div>
+      <div class="tl-title">IIT Madras Finalist — Shaastra Coding Contest</div>
+      <p class="tl-body">Applied to Shaastra (Coding Shastra), whose finals were held at IIT Madras — one of India's most prestigious institutions. Used logical reasoning over raw speed. Made the finals. Competed at IIT Madras. Checked off a dream.</p>
+      <div class="tl-badge">IIT Madras Finalist · Shaastra Programming Contest</div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-date">Feb 2025 – Nov 2025</div>
+      <div class="tl-title">Gardiyan — Full Cybersecurity Immersion</div>
+      <p class="tl-body">Joined Gardiyan after a competitive selection. One month of observation, then full internship. SOC operations, playbooks, daily log analysis on Splunk & ELK, detection rules in KQL, Azure Sentinel, AWS GuardDuty, real client tickets with 45-minute SLAs, night shifts, sleepless builds — and two production-grade security platforms as client deliverables. Received a full-time offer based on performance.</p>
+      <div class="tl-badge">Full-time offer received · Based on performance</div>
+    </div>
+
+    <div class="tl-item award">
+      <div class="tl-dot"></div>
+      <div class="tl-date">April 2026</div>
+      <div class="tl-title">Graduated — BTech Cybersecurity · CGPA 7.31</div>
+      <p class="tl-body">Completed all eight semesters. Passed from Poornima University in April 2026. Degree printing in December 2026. Four years of studying security, understanding systems, winning hackathons, and building production platforms alongside coursework.</p>
+      <div class="tl-badge">CGPA 7.31 · Degree December 2026</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- HACKATHONS -->
+<section id="hackathons" class="sec-pad">
+  <div class="sec-tag">// 02 — Hackathons</div>
+  <h2 class="sec-head">Built Under<br><em>Pressure</em></h2>
+  <div class="hack-grid">
+
+    <div class="hack-card">
+      <div class="hack-num">01</div>
+      <div class="hack-name">University Hackathon</div>
+      <div class="hack-loc">📍 Udaipur · March 2024</div>
+      <p class="hack-desc">First ever. Walked in knowing nothing. Left knowing exactly what I wanted to pursue. The spark.</p>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">02</div>
+      <div class="hack-name">Blockchain Hackathon</div>
+      <div class="hack-loc">📍 Jaipur · July 2024</div>
+      <p class="hack-desc">Two-day blockchain event in my home city. Competed without deep knowledge. Proved the gap was closeable.</p>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">03</div>
+      <div class="hack-name">Hacker House Goa</div>
+      <div class="hack-loc">📍 Goa · August 4–9, 2024</div>
+      <p class="hack-desc">5-day residential hackathon. Selected by building on DIAM blockchain. Late nights, real teams, real network. Best experience of the journey.</p>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">04</div>
+      <div class="hack-name">Gurgaon Hackathon</div>
+      <div class="hack-loc">📍 Cyber City, Gurgaon · Sept 2024</div>
+      <p class="hack-desc">Solidity lending platform with embedded security logic. Top 10 from 150+ teams. Code adopted by sponsor blockchain.</p>
+      <div class="hack-win">🏆 $400 Bounty Won</div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">05</div>
+      <div class="hack-name">Bangalore Hackathon</div>
+      <div class="hack-loc">📍 Bangalore · December 2024</div>
+      <p class="hack-desc">36 hours. Agoric blockchain. Cross-chain lending — deposit any asset, borrow in another currency with auto-conversion and minimal gas.</p>
+      <div class="hack-win">🏆 $350 Bounty Won</div>
+    </div>
+
+    <div class="hack-card">
+      <div class="hack-num">06</div>
+      <div class="hack-name">Shaastra — IIT Madras</div>
+      <div class="hack-loc">📍 IIT Madras · January 2025</div>
+      <p class="hack-desc">Coding contest finals at one of India's most prestigious institutions. Qualified through logic and reasoning, not raw algorithmic speed.</p>
+      <div class="hack-win">🎓 IIT Madras Finalist</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="sec-pad">
+  <div class="sec-tag">// 03 — Technical Arsenal</div>
+  <h2 class="sec-head">Tools of<br><em>the Trade</em></h2>
+  <div class="sk-grid">
+
+    <div class="sk-cat">
+      <div class="sk-icon">🛡️</div>
+      <div class="sk-name">SIEM & Detection</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Microsoft Sentinel</span><span class="sk-tag">Splunk</span>
+        <span class="sk-tag">ELK Stack</span><span class="sk-tag">KQL</span>
+        <span class="sk-tag">Sigma</span><span class="sk-tag">YARA</span>
+        <span class="sk-tag">Zeek</span><span class="sk-tag">Defender XDR</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🔍</div>
+      <div class="sk-name">DFIR & EDR</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Sysmon</span><span class="sk-tag">Velociraptor</span>
+        <span class="sk-tag">LimaCharlie</span><span class="sk-tag">Volatility</span>
+        <span class="sk-tag">Autopsy</span><span class="sk-tag">IOC Extraction</span>
+        <span class="sk-tag">Log Analysis</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">⚡</div>
+      <div class="sk-name">SOAR & Automation</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Tines</span><span class="sk-tag">Shuffle</span>
+        <span class="sk-tag">Sentinel Playbooks</span>
+        <span class="sk-tag">TheHive</span><span class="sk-tag">Cortex</span>
+        <span class="sk-tag">API Integrations</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">☁️</div>
+      <div class="sk-name">Cloud Security</div>
+      <div class="sk-tags">
+        <span class="sk-tag">AWS GuardDuty</span><span class="sk-tag">AWS Security Hub</span>
+        <span class="sk-tag">CloudTrail</span><span class="sk-tag">Azure Monitor</span>
+        <span class="sk-tag">Entra ID</span><span class="sk-tag">Defender for Cloud</span>
+        <span class="sk-tag">Terraform</span><span class="sk-tag">OPA</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🔷</div>
+      <div class="sk-name">Blockchain & Web3</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Solidity</span><span class="sk-tag">Smart Contracts</span>
+        <span class="sk-tag">Ethereum</span><span class="sk-tag">Polygon</span>
+        <span class="sk-tag">DIAM</span><span class="sk-tag">Agoric</span>
+        <span class="sk-tag">Cross-Chain</span><span class="sk-tag">DeFi</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🔐</div>
+      <div class="sk-name">Zero Trust & Identity</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Keycloak</span><span class="sk-tag">Pomerium</span>
+        <span class="sk-tag">ZTNA / SASE</span><span class="sk-tag">OIDC</span>
+        <span class="sk-tag">SAML</span><span class="sk-tag">PKI / TLS</span>
+        <span class="sk-tag">MFA</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">⚙️</div>
+      <div class="sk-name">Infrastructure</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Kubernetes</span><span class="sk-tag">K3s</span>
+        <span class="sk-tag">Docker</span><span class="sk-tag">Falco</span>
+        <span class="sk-tag">Trivy</span><span class="sk-tag">Prometheus</span>
+        <span class="sk-tag">Grafana</span><span class="sk-tag">HashiCorp Vault</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🧠</div>
+      <div class="sk-name">Threat Intel & Frameworks</div>
+      <div class="sk-tags">
+        <span class="sk-tag">MITRE ATT&CK</span><span class="sk-tag">NIST 800-53</span>
+        <span class="sk-tag">MISP</span><span class="sk-tag">OpenCTI</span>
+        <span class="sk-tag">AlienVault OTX</span><span class="sk-tag">UEBA</span>
+        <span class="sk-tag">Isolation Forest</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">💻</div>
+      <div class="sk-name">Scripting & Languages</div>
+      <div class="sk-tags">
+        <span class="sk-tag">Python</span><span class="sk-tag">Bash</span>
+        <span class="sk-tag">PowerShell</span><span class="sk-tag">Solidity</span>
+        <span class="sk-tag">KQL</span><span class="sk-tag">ESQL</span>
+        <span class="sk-tag">Terraform</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">📋</div>
+      <div class="sk-name">Compliance & GRC</div>
+      <div class="sk-tags">
+        <span class="sk-tag">NIST 800-53</span><span class="sk-tag">CIS Benchmarks</span>
+        <span class="sk-tag">ISO 27001</span><span class="sk-tag">GDPR</span>
+        <span class="sk-tag">PCI-DSS</span><span class="sk-tag">DSPM</span>
+        <span class="sk-tag">CNAPP</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🎯</div>
+      <div class="sk-name">Adversary Simulation</div>
+      <div class="sk-tags">
+        <span class="sk-tag">T1003 Cred Dump</span><span class="sk-tag">T1059 Scripting</span>
+        <span class="sk-tag">T1078 Valid Accts</span><span class="sk-tag">T1047 WMI</span>
+        <span class="sk-tag">Lateral Movement</span><span class="sk-tag">Detection Validation</span>
+      </div>
+    </div>
+
+    <div class="sk-cat">
+      <div class="sk-icon">🤖</div>
+      <div class="sk-name">AI in Security</div>
+      <div class="sk-tags">
+        <span class="sk-tag">LLM Integration</span><span class="sk-tag">AI Triage</span>
+        <span class="sk-tag">Behavioral Analytics</span><span class="sk-tag">Anomaly Detection</span>
+        <span class="sk-tag">Streamlit</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="sec-pad">
+  <div class="sec-tag">// 04 — Production Projects</div>
+  <h2 class="sec-head">Built for<br><em>Real Clients</em></h2>
+  <div class="proj-list">
+
+    <div class="proj-card">
+      <div>
+        <div class="proj-type">Production MVP · Client Deliverable · 2025</div>
+        <h3 class="proj-name">Project Horizon</h3>
+        <p class="proj-desc">
+          A unified Zero Trust security architecture built entirely on open-source tooling. Five integrated pillars — ZTNA & SASE via Pomerium and Keycloak for identity-aware access, automated PII discovery and DLP via Apache NiFi and Microsoft Presidio (DSPM), containerised workload security on K3s with Trivy and Falco (CNAPP), a unified XDR pipeline routing Suricata, Wazuh, and Cloud Custodian logs into ELK Stack, and an insider risk module. Demonstrates enterprise-grade Zero Trust at prototype scale.
+        </p>
+        <div class="proj-tech">
+          <span>Keycloak</span><span>Pomerium</span><span>Apache NiFi</span>
+          <span>Microsoft Presidio</span><span>Suricata</span><span>Falco</span>
+          <span>Trivy</span><span>ELK Stack</span><span>K3s</span>
+          <span>Cloud Custodian</span><span>MinIO</span><span>Python</span>
+        </div>
+      </div>
+      <div class="proj-side">
+        <div class="proj-badge">Zero Trust Platform</div>
+        <div class="proj-pillars">
+          <div class="proj-pillar">ZTNA & SASE</div>
+          <div class="proj-pillar">DSPM</div>
+          <div class="proj-pillar">CNAPP</div>
+          <div class="proj-pillar">XDR Pipeline</div>
+          <div class="proj-pillar">Insider Risk</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div>
+        <div class="proj-type">Production MVP · Client Deliverable · 2025</div>
+        <h3 class="proj-name">Project Citadel</h3>
+        <p class="proj-desc">
+          Next-generation Security Analytics & Response Platform — a complete SOC ecosystem on open-source. Wazuh and Elasticsearch monitoring Kubernetes clusters. Python/Streamlit UEBA engine using Isolation Forest for insider threat and account takeover detection via statistical anomaly analysis. Automated SOAR pipeline with TheHive, Cortex, MISP, and OpenCTI for custom enrichment playbooks. Prometheus + Grafana observability. Mapped to NIST 800-53 and MITRE ATT&CK. Validated with live adversary simulations.
+        </p>
+        <div class="proj-tech">
+          <span>Wazuh</span><span>Elasticsearch</span><span>TheHive</span>
+          <span>Cortex</span><span>MISP</span><span>OpenCTI</span>
+          <span>Kubernetes</span><span>Prometheus</span><span>Grafana</span>
+          <span>HashiCorp Vault</span><span>Python</span><span>Streamlit</span>
+        </div>
+      </div>
+      <div class="proj-side">
+        <div class="proj-badge">SOC Platform</div>
+        <div class="proj-pillars">
+          <div class="proj-pillar">SIEM Ingestion</div>
+          <div class="proj-pillar">Custom UEBA</div>
+          <div class="proj-pillar">SOAR Engine</div>
+          <div class="proj-pillar">NIST 800-53</div>
+          <div class="proj-pillar">MITRE ATT&CK</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div>
+        <div class="proj-type">Internship Group Project · 2025</div>
+        <h3 class="proj-name">Lynis — Feature Extension</h3>
+        <p class="proj-desc">
+          As part of an eight-intern team, developed eight brand-new features for the open-source Lynis security auditing tool. Each feature added novel detection capabilities or audit functionality — written in shell scripting, integrated into the Lynis framework with full adherence to coding standards and automated tests. Total: 64 new features shipped across the batch.
+        </p>
+        <div class="proj-tech">
+          <span>Bash / Shell</span><span>Lynis</span>
+          <span>Unix Security Auditing</span><span>Open Source Contribution</span>
+        </div>
+      </div>
+      <div class="proj-side">
+        <div class="proj-badge">Open Source</div>
+        <div class="proj-pillars">
+          <div class="proj-pillar">8 Features Built</div>
+          <div class="proj-pillar">Team of 8 Interns</div>
+          <div class="proj-pillar">64 Total Shipped</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="proj-card">
+      <div>
+        <div class="proj-type">Hackathon Build · Gurgaon · Sept 2024</div>
+        <h3 class="proj-name">Blockchain Lending Platform</h3>
+        <p class="proj-desc">
+          Smart contract-based lending system on Solidity with embedded security logic. Users deposit collateral and borrow against it, with all conditions enforced on-chain. Security was integral to the design — not bolted on. Placed Top 10 from 150+ teams. Code adopted by the sponsor blockchain company for use in their own platform.
+        </p>
+        <div class="proj-tech">
+          <span>Solidity</span><span>Smart Contracts</span>
+          <span>Ethereum</span><span>Web3.js</span><span>Security Auditing</span>
+        </div>
+      </div>
+      <div class="proj-side">
+        <div class="proj-badge">Bounty Winner</div>
+        <div class="proj-pillars">
+          <div class="proj-pillar">$400 Prize</div>
+          <div class="proj-pillar">Top 10 / 150+</div>
+          <div class="proj-pillar">Code Adopted</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="sec-pad">
+  <div class="sec-tag">// 05 — Professional Experience</div>
+  <h2 class="sec-head">Where I've<br><em>Worked</em></h2>
+
+  <div class="exp-wrap reveal">
+    <div class="exp-bg-text">GARDIYAN</div>
+    <div class="exp-head">
+      <div>
+        <div class="exp-company">Gardiyan</div>
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--w3);letter-spacing:2px;margin-top:8px;">SYSTEM SECURITY TECHNOLOGIES · ANKARA, TÜRKIYE (REMOTE)</div>
+      </div>
+      <div class="exp-meta">
+        <div class="exp-title">SOC L1 Analyst Intern</div>
+        <div class="exp-period">May 2025 – Nov 2025</div>
+      </div>
+    </div>
+    <div class="exp-body">
+      <div class="exp-roles">
+        <div class="exp-role">
+          <div class="exp-role-name">Alert Triage & Investigation</div>
+          <div class="exp-role-desc">Investigated and triaged 50–100 weekly alerts across endpoints, identity, and network telemetry. Standardised incident intake processes.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">Detection Engineering</div>
+          <div class="exp-role-desc">Tuned 20+ Microsoft Sentinel detection rules by analysing false positive triggers. Developed custom KQL queries for DNS, mail, API, and endpoint logs.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">Playbook Development</div>
+          <div class="exp-role-desc">Wrote 10+ SOC playbooks covering DoS, DNS tunnelling, phishing, credential dumping, Kerberoasting, and malware outbreaks — all MITRE ATT&CK aligned.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">SOAR & Automation</div>
+          <div class="exp-role-desc">Automated triage workflows in Tines and Shuffle. Built Python/Bash scripts saving ~10 hours of manual enrichment work per week.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">Cloud Security</div>
+          <div class="exp-role-desc">Hands-on with Azure Sentinel, Microsoft Defender for Cloud, AWS GuardDuty, Security Hub. Worked across both major cloud platforms simultaneously, including night-shift rotations.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">Adversary Simulation</div>
+          <div class="exp-role-desc">Conducted simulations across T1003, T1059, T1078, T1047 to validate detection coverage for lateral movement and credential abuse scenarios.</div>
+        </div>
+      </div>
+      <div class="exp-nums">
+        <div class="exp-num"><div class="exp-num-val">50–100</div><div class="exp-num-label">Weekly Alerts</div></div>
+        <div class="exp-num"><div class="exp-num-val">20+</div><div class="exp-num-label">Detection Rules Tuned</div></div>
+        <div class="exp-num"><div class="exp-num-val">10+</div><div class="exp-num-label">Playbooks Written</div></div>
+        <div class="exp-num"><div class="exp-num-val">~10h</div><div class="exp-num-label">Saved Weekly via Automation</div></div>
+        <div class="exp-num"><div class="exp-num-val">FTE</div><div class="exp-num-label">Offer Received</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="exp-spacer"></div>
+
+  <div class="exp-wrap reveal">
+    <div class="exp-bg-text">CYBERSRC</div>
+    <div class="exp-head">
+      <div>
+        <div class="exp-company" style="font-size:2.2rem;">CyberSRC Consultancy</div>
+        <div style="font-family:'DM Mono',monospace;font-size:.6rem;color:var(--w3);letter-spacing:2px;margin-top:8px;">PVT. LTD. · NOIDA, INDIA (REMOTE)</div>
+      </div>
+      <div class="exp-meta">
+        <div class="exp-title">Cyber Risk Intern</div>
+        <div class="exp-period">Sept 2024 – Dec 2024</div>
+      </div>
+    </div>
+    <div class="exp-body">
+      <div class="exp-roles" style="grid-template-columns:repeat(2,1fr);">
+        <div class="exp-role">
+          <div class="exp-role-name">Security Monitoring</div>
+          <div class="exp-role-desc">Reviewed Wazuh alerts and event data to identify anomalies, validate configurations, and support ongoing security monitoring workflows.</div>
+        </div>
+        <div class="exp-role">
+          <div class="exp-role-name">Documentation & Compliance</div>
+          <div class="exp-role-desc">Developed security documentation including procedures, findings summaries, and remediation guidance. Prepared audit-ready evidence packages.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" class="sec-pad">
+  <div class="sec-tag">// 06 — Certifications & Recognition</div>
+  <h2 class="sec-head">Credentials<br><em>& Accolades</em></h2>
+  <div class="cert-grid">
+    <div class="cert-item">
+      <div class="cert-icon">☁️</div>
+      <div>
+        <div class="cert-name">Oracle Cloud Infrastructure Generative AI</div>
+        <div class="cert-issuer">Oracle · Certified Professional</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🔐</div>
+      <div>
+        <div class="cert-name">CyberOps Associate</div>
+        <div class="cert-issuer">Cisco · Certification</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🏛️</div>
+      <div>
+        <div class="cert-name">Shaastra Programming Contest Finalist</div>
+        <div class="cert-issuer">IIT Madras · January 2025</div>
+      </div>
+    </div>
+    <div class="cert-item">
+      <div class="cert-icon">🏆</div>
+      <div>
+        <div class="cert-name">Blockchain Hackathon Bounty Winner</div>
+        <div class="cert-issuer">Gurgaon + Bangalore · $750 Total</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="sec-pad">
+  <div class="sec-tag">// 07 — Let's Connect</div>
+  <h2 class="sec-head">Open to<br><em>Opportunities</em></h2>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <p>From not knowing what a hackathon was — to winning bounties, building production security platforms, and competing at IIT Madras — all while completing a BTech and a 9-month internship that offered a full-time role.</p>
+      <p>If you're from a hiring team, a startup, or someone who wants to collaborate on something meaningful in cybersecurity — I'd love to talk. Let's build something that matters.</p>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/yash--rathore/" target="_blank" class="c-link">
+          <span class="c-link-ico">💼</span>LinkedIn — Yash Rathore
+        </a>
+        <a href="https://github.com/Yashraj-001" target="_blank" class="c-link">
+          <span class="c-link-ico">🐙</span>GitHub — yashrathore
+        </a>
+        <a href="mailto:yashrajput7014@gmail.com" class="c-link">
+          <span class="c-link-ico">✉️</span>Email — Let's talk
+        </a>
+      </div>
+    </div>
+    <div class="contact-right">
+      <div class="avail-card">
+        <div class="avail-top">
+          <div class="avail-dot"></div>
+          <div class="avail-status">Available for Opportunities</div>
+        </div>
+        <p class="avail-body">
+          Open to SOC analyst roles, detection engineering, cybersecurity engineering positions, and interesting collaborations.<br><br>
+          Based in Jaipur, India. Open to relocation. Remote-ready.
+        </p>
+      </div>
+      <div class="contact-quote">
+        <p>"If everyone's doing the same thing — what's the actual edge?"</p>
+        <cite>The question that changed everything</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-copy">© 2026 Yash Rathore · All Rights Reserved</div>
+  <div class="foot-note">For hosting on <span>GitHub Pages</span> — yourusername.github.io</div>
+</footer>
+
+<script>
+// ── CURSOR ──
+const cur = document.getElementById('cur');
+const ring = document.getElementById('cur-ring');
+let mx=window.innerWidth/2, my=window.innerHeight/2;
+let rx=mx, ry=my;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cur.style.left = mx+'px';
+  cur.style.top = my+'px';
+}, {passive:true});
+
+function lerpRing(){
+  rx += (mx-rx) * 0.18;
+  ry += (my-ry) * 0.18;
+  ring.style.left = rx+'px';
+  ring.style.top = ry+'px';
+  requestAnimationFrame(lerpRing);
+}
+lerpRing();
+
+// ── SCROLL PROGRESS ──
+const prog = document.getElementById('prog');
+window.addEventListener('scroll', () => {
+  const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
+  prog.style.width = (p*100)+'%';
+}, {passive:true});
+
+// ── NAV SCROLL ──
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 60);
+}, {passive:true});
+
+// ── PARTICLE CANVAS ──
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H, pts = [];
+function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
+resize(); window.addEventListener('resize', resize);
+
+class Pt {
+  constructor(){this.reset();}
+  reset(){
+    this.x=Math.random()*W; this.y=Math.random()*H;
+    this.vx=(Math.random()-.5)*.35; this.vy=(Math.random()-.5)*.35;
+    this.r=Math.random()*1.5+.3; this.a=Math.random()*.4+.05;
+  }
+  tick(){
+    this.x+=this.vx; this.y+=this.vy;
+    if(this.x<0||this.x>W||this.y<0||this.y>H) this.reset();
+  }
+  draw(){
+    ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(200,169,110,${this.a})`; ctx.fill();
+  }
+}
+for(let i=0;i<90;i++) pts.push(new Pt());
+
+function frame(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{p.tick();p.draw();});
+  pts.forEach((p,i)=>{
+    pts.slice(i+1).forEach(q=>{
+      const d=Math.hypot(p.x-q.x,p.y-q.y);
+      if(d<130){
+        ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);
+        ctx.strokeStyle=`rgba(200,169,110,${(1-d/130)*.06})`;
+        ctx.lineWidth=.5; ctx.stroke();
+      }
+    });
+    const md=Math.hypot(p.x-mx,p.y-my);
+    if(md<180){
+      ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(mx,my);
+      ctx.strokeStyle=`rgba(255,255,255,${(1-md/180)*.08})`;
+      ctx.lineWidth=.5; ctx.stroke();
+    }
+  });
+  requestAnimationFrame(frame);
+}
+frame();
+
+// ── TYPED TEXT ──
+const roles=['SOC Analyst','Detection Engineer','Zero Trust Architect','Threat Hunter','Security Researcher'];
+let ri=0,ci=0,del=false,txt='';
+const el=document.getElementById('typed');
+function type(){
+  if(!del){ txt=roles[ri].slice(0,++ci); if(ci===roles[ri].length) setTimeout(()=>{del=true;},1800); }
+  else { txt=roles[ri].slice(0,--ci); if(ci===0){del=false;ri=(ri+1)%roles.length;} }
+  el.textContent=txt;
+  setTimeout(type, del?38:72);
+}
+type();
+
+// ── COUNTER ──
+function count(el, n){
+  let v=0; const step=n/55;
+  const t=setInterval(()=>{
+    v+=step; if(v>=n){v=n;clearInterval(t);}
+    el.textContent=Math.floor(v)+(n>=100?'+':'');
+  },18);
+}
+const cio=new IntersectionObserver(en=>{
+  en.forEach(e=>{
+    if(e.isIntersecting){
+      document.querySelectorAll('.stat-num').forEach(el=>count(el,+el.dataset.n));
+      cio.disconnect();
+    }
+  });
+},{threshold:.5});
+const hs=document.querySelector('.hero-stats');
+if(hs) cio.observe(hs);
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(en=>{
+  en.forEach((e,i)=>{
+    if(e.isIntersecting) setTimeout(()=>e.target.classList.add('in'), i*60);
+  });
+},{threshold:.08,rootMargin:'0px 0px -50px 0px'});
+document.querySelectorAll('.tl-item,.hack-card,.sk-cat,.proj-card,.cert-item,.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
