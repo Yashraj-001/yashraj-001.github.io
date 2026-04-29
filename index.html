@@ -4,15 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="description" content="Yash Rathore — Cybersecurity Engineer, SOC Analyst. BTech Cybersecurity, Poornima University Jaipur.">
-<title>Yash Rathore -- SOC</title>
+<title>Yash Rathore — Cybersecurity</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400;1,700&family=Lato:wght@300;400;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-/* =========================================================
-   THEME SYSTEM — 4 Light Variants + Dark
-   ========================================================= */
-
 [data-theme="light"][data-variant="0"] {
   --ink:        #1a1612;
   --ink2:       #3d3630;
@@ -114,9 +110,6 @@
   --status-dot: #c8963c;
 }
 
-/* =========================================================
-   RESET & ROOT
-   ========================================================= */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -146,26 +139,19 @@ body {
   transition: background 0.4s ease, color 0.4s ease;
 }
 
-/* Only hide default cursor on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   body { cursor: none; }
 }
 
-/* =========================================================
-   CUSTOM CURSOR — Only for PC/laptop (hover:hover + fine pointer)
-   Hidden on touch / mobile
-   ========================================================= */
 #cur-wrap {
-  display: none; /* hidden by default, shown via JS on non-touch */
+  display: none;
   position: fixed;
   z-index: 9999;
   pointer-events: none;
   top: 0; left: 0;
   will-change: transform;
-  /* No transition — instant movement */
 }
 
-/* The SVG cursor icon container */
 #cur-icon {
   width: 38px;
   height: 38px;
@@ -173,12 +159,8 @@ body {
   filter: drop-shadow(0 2px 8px rgba(0,0,0,0.35));
   transition: transform 0.12s ease, filter 0.2s ease;
 }
-#cur-icon svg {
-  width: 100%;
-  height: 100%;
-}
+#cur-icon svg { width: 100%; height: 100%; }
 
-/* Cursor ring — instant follow */
 #cur-ring {
   position: fixed;
   z-index: 9998;
@@ -196,9 +178,6 @@ body.cursor-hover #cur-icon { transform: translate(-50%, -50%) scale(1.25); }
 body.cursor-hover #cur-ring { width: 72px; height: 72px; border-color: var(--gold); }
 body.cursor-click #cur-icon { transform: translate(-50%, -50%) scale(0.85); filter: drop-shadow(0 1px 4px rgba(0,0,0,0.2)); }
 
-/* =========================================================
-   GLITCH TEXT ANIMATION (for hero name)
-   ========================================================= */
 @keyframes glitch1 {
   0%,95%,100% { clip-path: none; transform: none; }
   96% { clip-path: inset(20% 0 60% 0); transform: translate(-4px, 0); }
@@ -213,9 +192,6 @@ body.cursor-click #cur-icon { transform: translate(-50%, -50%) scale(0.85); filt
   98% { opacity: 0; }
 }
 
-/* =========================================================
-   MAGNETIC FIELD RIPPLE (decorative overlay on hero)
-   ========================================================= */
 .hero-ripple {
   position: absolute;
   border-radius: 50%;
@@ -228,34 +204,19 @@ body.cursor-click #cur-icon { transform: translate(-50%, -50%) scale(0.85); filt
   100% { transform: scale(8); opacity: 0; }
 }
 
-/* =========================================================
-   SCROLL PROGRESS
-   ========================================================= */
 #prog {
   position: fixed; top: 0; left: 0; height: 2px;
   background: linear-gradient(90deg, var(--gold), var(--gold-light));
   z-index: 500;
   width: 0;
-  /* No transition — instant */
 }
 
-/* =========================================================
-   CANVAS
-   ========================================================= */
 #c {
   position: fixed; inset: 0; z-index: 0;
   opacity: 0.15; pointer-events: none;
   transition: opacity 0.4s;
 }
 
-/* =========================================================
-   TEXT SCRAMBLE EFFECT — on hover
-   ========================================================= */
-.scramble { display: inline-block; }
-
-/* =========================================================
-   STATUS BAR
-   ========================================================= */
 #status-bar {
   position: fixed; bottom: 0; left: 0; right: 0; z-index: 300;
   background: var(--status-bg);
@@ -291,9 +252,6 @@ body.cursor-click #cur-icon { transform: translate(-50%, -50%) scale(0.85); filt
 }
 #sb-close:hover { color: var(--ink); }
 
-/* =========================================================
-   NAV
-   ========================================================= */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
   padding: clamp(0.75rem,2vw,1.25rem) clamp(1rem,4vw,2.5rem);
@@ -395,9 +353,6 @@ nav.scrolled {
   margin-top: 1rem;
 }
 
-/* =========================================================
-   SHARED LAYOUT
-   ========================================================= */
 .container {
   max-width: var(--max-w);
   margin: 0 auto;
@@ -439,9 +394,7 @@ section { position: relative; z-index: 1; }
 }
 .reveal.in { opacity: 1; transform: translateY(0); }
 
-/* =========================================================
-   HERO
-   ========================================================= */
+/* HERO */
 #hero {
   min-height: 100svh;
   background: var(--cream);
@@ -485,7 +438,6 @@ section { position: relative; z-index: 1; }
 .hero-name .line:nth-child(1) span { animation-delay: .2s; }
 .hero-name .line:nth-child(2) span { animation-delay: .35s; color: var(--gold); }
 
-/* Glitch layer for hero name */
 .hero-name-glitch {
   position: absolute; top: 0; left: 0; right: 0; bottom: 0;
   font-family: var(--font-display);
@@ -594,9 +546,7 @@ section { position: relative; z-index: 1; }
   letter-spacing: 3px; text-transform: uppercase;
 }
 
-/* =========================================================
-   MARQUEE
-   ========================================================= */
+/* MARQUEE */
 .marquee-bar {
   background: var(--ink);
   padding: 0.9rem 0; overflow: hidden;
@@ -615,9 +565,7 @@ section { position: relative; z-index: 1; }
 .marquee-inner .sep { color: var(--gold); opacity: .7; }
 @keyframes scroll { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
 
-/* =========================================================
-   STORY / TIMELINE
-   ========================================================= */
+/* STORY / TIMELINE */
 #story { background: var(--cream); }
 
 .tl { position: relative; padding-left: clamp(1.5rem,4vw,2.5rem); }
@@ -665,10 +613,18 @@ section { position: relative; z-index: 1; }
   border: 1px solid var(--gold-pale);
   color: var(--gold); background: rgba(181,136,58,0.06);
 }
+.tl-tag-row {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.85rem;
+}
+.tl-tag {
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-mono);
+  font-size: 0.54rem; letter-spacing: 1px;
+  color: var(--ink3); border: 1px solid var(--rule);
+  text-transform: uppercase;
+}
 
-/* =========================================================
-   HACKATHONS
-   ========================================================= */
+/* HACKATHONS */
 #hackathons { background: var(--paper2); }
 
 .hack-grid {
@@ -736,9 +692,7 @@ section { position: relative; z-index: 1; }
   padding: 0.3rem 0.75rem; background: rgba(181,136,58,0.06);
 }
 
-/* =========================================================
-   SKILLS
-   ========================================================= */
+/* SKILLS */
 #skills { background: var(--cream); }
 
 .sk-grid {
@@ -777,9 +731,7 @@ section { position: relative; z-index: 1; }
   background: rgba(181,136,58,0.06);
 }
 
-/* =========================================================
-   PROJECTS
-   ========================================================= */
+/* PROJECTS */
 #projects { background: var(--paper2); }
 
 .proj-list { display: flex; flex-direction: column; gap: 1px; }
@@ -849,9 +801,7 @@ section { position: relative; z-index: 1; }
 }
 .proj-card:hover .proj-pillar { border-color: var(--gold); color: var(--ink2); }
 
-/* =========================================================
-   EXPERIENCE
-   ========================================================= */
+/* EXPERIENCE */
 #experience { background: var(--cream); }
 
 .exp-wrap {
@@ -938,9 +888,7 @@ section { position: relative; z-index: 1; }
   letter-spacing: -3px;
 }
 
-/* =========================================================
-   CERTIFICATIONS
-   ========================================================= */
+/* CERTIFICATIONS */
 #certs { background: var(--paper2); }
 
 .cert-grid {
@@ -977,9 +925,7 @@ section { position: relative; z-index: 1; }
   letter-spacing: 2px; text-transform: uppercase;
 }
 
-/* =========================================================
-   RESUME SECTION — FIXED VIEW ONLINE BUTTON FOR DARK MODE
-   ========================================================= */
+/* RESUME */
 #resume { background: var(--ink); position: relative; overflow: hidden; }
 #resume .container { position: relative; z-index: 2; }
 .resume-inner {
@@ -987,7 +933,6 @@ section { position: relative; z-index: 1; }
   flex-wrap: wrap; gap: 2rem;
   padding: 3.5rem 0;
 }
-.resume-text {}
 .resume-tag {
   font-family: var(--font-mono);
   font-size: 0.6rem; color: var(--gold);
@@ -1009,7 +954,6 @@ section { position: relative; z-index: 1; }
 }
 .resume-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
-/* Download button — always gold */
 .btn-dl {
   padding: 1rem 2rem;
   background: var(--gold); color: #fff;
@@ -1023,16 +967,15 @@ section { position: relative; z-index: 1; }
 .btn-dl:hover { background: var(--gold-light); transform: translateY(-2px); }
 .btn-dl svg { width: 14px; height: 14px; }
 
-/* *** FIX: View Online button — explicit light text, visible border in all themes *** */
 .btn-view-resume {
   padding: 1rem 2rem;
   background: transparent;
-  color: #e8e2da;                           /* always light — visible on dark bg */
+  color: #e8e2da;
   font-family: var(--font-mono);
   font-size: 0.65rem; font-weight: 500;
   letter-spacing: 2px; text-transform: uppercase;
   text-decoration: none;
-  border: 1.5px solid rgba(232,226,218,0.35); /* always light border */
+  border: 1.5px solid rgba(232,226,218,0.35);
   cursor: none;
   transition: border-color .25s, color .25s, background .25s, transform .2s;
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -1054,9 +997,7 @@ section { position: relative; z-index: 1; }
   pointer-events: none; white-space: nowrap;
 }
 
-/* =========================================================
-   CONTACT
-   ========================================================= */
+/* CONTACT */
 #contact { background: var(--cream); border-top: 1px solid var(--rule); }
 
 .contact-grid {
@@ -1171,9 +1112,6 @@ section { position: relative; z-index: 1; }
   letter-spacing: 1px; white-space: nowrap;
 }
 
-/* =========================================================
-   FOOTER
-   ========================================================= */
 footer {
   position: relative; z-index: 1;
   background: var(--ink); color: var(--paper);
@@ -1194,9 +1132,6 @@ footer {
 }
 .foot-note span { color: var(--gold); }
 
-/* =========================================================
-   ANIMATIONS
-   ========================================================= */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(12px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -1206,11 +1141,6 @@ footer {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* =========================================================
-   PREMIUM EXTRA ANIMATIONS
-   ========================================================= */
-
-/* Floating orbs in background */
 .orb {
   position: fixed; border-radius: 50%; pointer-events: none; z-index: 0;
   filter: blur(80px); opacity: 0.04;
@@ -1224,21 +1154,6 @@ footer {
 }
 [data-theme="dark"] .orb { opacity: 0.07; }
 
-/* Section number watermarks */
-.sec-watermark {
-  position: absolute; right: 2rem; top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-display);
-  font-size: clamp(6rem,12vw,14rem); font-weight: 900;
-  color: var(--rule); pointer-events: none; z-index: 0;
-  letter-spacing: -4px; line-height: 1;
-  user-select: none;
-}
-
-/* Magnetic hover effect on cards */
-.mag-card { transition: transform 0.2s cubic-bezier(.16,1,.3,1); }
-
-/* Spotlight effect on sections */
 .spotlight-wrap { position: relative; overflow: hidden; }
 .spotlight-wrap::before {
   content: '';
@@ -1250,7 +1165,6 @@ footer {
 }
 .spotlight-wrap:hover::before { opacity: 1; }
 
-/* Scan line effect on dark mode */
 [data-theme="dark"] body::after {
   content: '';
   position: fixed; inset: 0; z-index: 1;
@@ -1264,7 +1178,6 @@ footer {
   pointer-events: none;
 }
 
-/* Stagger fade-in for hack cards */
 .hack-card:nth-child(1) { transition-delay: 0s; }
 .hack-card:nth-child(2) { transition-delay: 0.06s; }
 .hack-card:nth-child(3) { transition-delay: 0.12s; }
@@ -1272,16 +1185,11 @@ footer {
 .hack-card:nth-child(5) { transition-delay: 0.24s; }
 .hack-card:nth-child(6) { transition-delay: 0.30s; }
 .hack-card:nth-child(7) { transition-delay: 0.36s; }
-
-/* Cert items stagger */
 .cert-item:nth-child(1) { transition-delay: 0s; }
 .cert-item:nth-child(2) { transition-delay: 0.07s; }
 .cert-item:nth-child(3) { transition-delay: 0.14s; }
 .cert-item:nth-child(4) { transition-delay: 0.21s; }
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
 @media (min-width: 1400px) {
   :root { --max-w: 1280px; }
   .sec-head { font-size: 5rem; }
@@ -1351,22 +1259,14 @@ footer {
 <body>
 
 <div id="prog"></div>
-
-<!-- Custom cursor — only shown on non-touch devices via JS -->
-<div id="cur-wrap">
-  <div id="cur-icon">
-    <!-- SVG icons injected by JS based on theme/variant -->
-  </div>
-</div>
+<div id="cur-wrap"><div id="cur-icon"></div></div>
 <div id="cur-ring"></div>
-
 <canvas id="c"></canvas>
 
-<!-- Floating orbs -->
 <div class="orb" style="width:600px;height:600px;background:var(--gold);top:-200px;left:-200px;animation-duration:18s;"></div>
 <div class="orb" style="width:400px;height:400px;background:var(--gold);bottom:-100px;right:-100px;animation-duration:14s;animation-delay:-6s;"></div>
 
-<!-- ═══════════════════════ STATUS BAR ═══════════════════════ -->
+<!-- STATUS BAR -->
 <div id="status-bar">
   <div class="sb-item">
     <div class="sb-dot"></div>
@@ -1388,7 +1288,7 @@ footer {
   <button id="sb-close" title="Dismiss">✕</button>
 </div>
 
-<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">Y<span>.</span>Rathore</a>
   <div class="nav-links">
@@ -1411,7 +1311,7 @@ footer {
       </svg>
       <span>Theme</span>
     </button>
-    <a href="https://drive.google.com/file/d/1byiYZHr8Wfx2_2LvwdTapAwgQb23UPKf/view?usp=sharing" target="_blank" rel="noopener" class="btn-resume-nav">
+    <a href="https://drive.google.com/file/d/1RuADWQzTVZFFG3nOyg3EPNVNPqt_OZfh/view" target="_blank" rel="noopener" class="btn-resume-nav">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Resume
     </a>
@@ -1431,14 +1331,14 @@ footer {
   <a href="#certs" class="menu-link">Credentials</a>
   <a href="#contact" class="menu-link">Contact</a>
   <div class="nav-mobile-bottom">
-    <a href="https://drive.usercontent.google.com/uc?id=1byiYZHr8Wfx2_2LvwdTapAwgQb23UPKf&export=download" target="_blank" rel="noopener" class="btn-resume-hero" style="margin-top:0.5rem;">
+    <a href="https://drive.usercontent.google.com/uc?id=1RuADWQzTVZFFG3nOyg3EPNVNPqt_OZfh&export=download" target="_blank" rel="noopener" class="btn-resume-hero" style="margin-top:0.5rem;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Download Resume
     </a>
   </div>
 </div>
 
-<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<!-- HERO -->
 <section id="hero">
   <div class="hero-inner">
     <div class="hero-eyebrow">BTech Cybersecurity · Poornima University, Jaipur · 2022–2026</div>
@@ -1455,24 +1355,22 @@ footer {
     <div class="hero-bottom">
       <div>
         <p class="hero-desc">
-          From not knowing what a hackathon was — to winning bounties across Goa, Gurgaon,
-          and Bangalore, building production-grade SOC platforms, and competing at IIT&nbsp;Madras.
-          Cybersecurity is not just a field. It is a lens.
+          Cybersecurity was never a career decision — it was a compulsion. From Kali Linux in class 10 to TryHackMe's top 1%, from writing penetration test reports with free tools to building production-grade SOC platforms. Blue team. Red team. The full picture.
         </p>
         <div class="hero-cta">
           <a href="#projects" class="btn-primary">View Projects</a>
           <a href="#contact" class="btn-outline">Connect</a>
-          <a href="https://drive.google.com/file/d/1byiYZHr8Wfx2_2LvwdTapAwgQb23UPKf/view?usp=sharing" target="_blank" rel="noopener" class="btn-resume-hero">
+          <a href="https://drive.google.com/file/d/1RuADWQzTVZFFG3nOyg3EPNVNPqt_OZfh/view" target="_blank" rel="noopener" class="btn-resume-hero">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Resume
           </a>
         </div>
       </div>
       <div class="hero-stats">
-        <div class="stat"><div class="stat-num" data-n="5">0</div><div class="stat-label">Hackathons</div></div>
+        <div class="stat"><div class="stat-num" data-n="1">0</div><div class="stat-label">TryHackMe Top %</div></div>
         <div class="stat"><div class="stat-num" data-n="750">0</div><div class="stat-label">$ Bounty Won</div></div>
-        <div class="stat"><div class="stat-num" data-n="9">0</div><div class="stat-label">Months at Gardiyan</div></div>
-        <div class="stat"><div class="stat-num" data-n="2">0</div><div class="stat-label">Personal Projects</div></div>
+        <div class="stat"><div class="stat-num" data-n="9">0</div><div class="stat-label">Months SOC Work</div></div>
+        <div class="stat"><div class="stat-num" data-n="5">0</div><div class="stat-label">Hackathons</div></div>
       </div>
     </div>
   </div>
@@ -1485,86 +1383,196 @@ footer {
 <!-- MARQUEE -->
 <div class="marquee-bar">
   <div class="marquee-inner">
-    <span>Threat Detection</span><span class="sep">·</span>
+    <span>TryHackMe Top 1%</span><span class="sep">·</span>
+    <span>Penetration Testing</span><span class="sep">·</span>
     <span>Microsoft Sentinel</span><span class="sep">·</span>
     <span>SIEM / ELK</span><span class="sep">·</span>
-    <span>Blockchain Security</span><span class="sep">·</span>
     <span>Zero Trust Architecture</span><span class="sep">·</span>
     <span>SOC Engineering</span><span class="sep">·</span>
+    <span>Threat Detection</span><span class="sep">·</span>
     <span>AWS GuardDuty</span><span class="sep">·</span>
     <span>Incident Response</span><span class="sep">·</span>
     <span>IIT Madras Finalist</span><span class="sep">·</span>
     <span>MITRE ATT&amp;CK</span><span class="sep">·</span>
-    <span>Kubernetes Security</span><span class="sep">·</span>
+    <span>HackTheBox</span><span class="sep">·</span>
+    <span>PortSwigger</span><span class="sep">·</span>
     <span>UEBA Analytics</span><span class="sep">·</span>
-    <span>0xDay Pondicherry</span><span class="sep">·</span>
-    <span>Threat Detection</span><span class="sep">·</span>
+    <span>Kubernetes Security</span><span class="sep">·</span>
+    <span>TryHackMe Top 1%</span><span class="sep">·</span>
+    <span>Penetration Testing</span><span class="sep">·</span>
     <span>Microsoft Sentinel</span><span class="sep">·</span>
     <span>SIEM / ELK</span><span class="sep">·</span>
-    <span>Blockchain Security</span><span class="sep">·</span>
     <span>Zero Trust Architecture</span><span class="sep">·</span>
     <span>SOC Engineering</span><span class="sep">·</span>
+    <span>Threat Detection</span><span class="sep">·</span>
     <span>AWS GuardDuty</span><span class="sep">·</span>
     <span>Incident Response</span><span class="sep">·</span>
-    <span>IIT Madras Finalist</span><span class="sep">·</span>
     <span>MITRE ATT&amp;CK</span><span class="sep">·</span>
-    <span>Kubernetes Security</span><span class="sep">·</span>
-    <span>UEBA Analytics</span><span class="sep">·</span>
-    <span>0xDay Pondicherry</span><span class="sep">·</span>
+    <span>HackTheBox</span><span class="sep">·</span>
+    <span>PortSwigger</span><span class="sep">·</span>
   </div>
 </div>
 
-<!-- ═══════════════════════ STORY ═══════════════════════ -->
+<!-- STORY -->
 <section id="story" class="sec-pad">
   <div class="container">
     <div class="sec-tag">01 — Origin Story</div>
-    <h2 class="sec-head">The <em>Journey</em><br>That Built This</h2>
+    <h2 class="sec-head">Cyber Was<br><em>Always First</em></h2>
     <div class="tl">
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div><div class="tl-date">September 2022</div><div class="tl-title">Day One — Poornima University, Jaipur</div><p class="tl-body">I began my BTech in Cybersecurity at Poornima University. In the early months, the path was familiar — coursework, textbooks, the standard academic progression. But a quiet, persistent question began to surface: <em>if every student is following the same track, what constitutes a genuine edge?</em> That question refused to settle, and it eventually changed the direction of everything that followed.</p></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div><div class="tl-date">2023</div><div class="tl-title">A Word I Did Not Yet Know — Hackathon</div><p class="tl-body">During 2023, I encountered a term I had not come across before: <em>hackathon</em>. The concept was vague to me at first — I understood it involved rapid building and competitive development, but little beyond that. Simultaneously, I was drawn to blockchain technology — the architecture of trustless systems felt like the logical evolution of security thinking. Both ideas stayed with me as 2023 came to a close.</p></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div><div class="tl-date">March 2024</div><div class="tl-title">First Hackathon — Udaipur</div><p class="tl-body">In March 2024, I attended my first hackathon in Udaipur. I arrived with almost no preparation. What I found was something I had not anticipated — the pace, the focus, the collective intensity. I left with one clear conviction: I needed to do this again, more seriously.</p><div class="tl-badge">First hackathon complete</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div><div class="tl-date">July 2024</div><div class="tl-title">Blockchain Hackathon — Jaipur</div><p class="tl-body">A two-day blockchain-focused hackathon held in my home city. I was still learning, still finding my footing. But the experience taught me something valuable: the gap between where I was and where I wanted to be was not a question of innate ability — it was a question of application.</p></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">4–9 August 2024</div><div class="tl-title">Hacker House Goa — Selected and Invited</div><p class="tl-body">Selected through Devfolio by building on the DIAM blockchain. Five days residential. Late-night debugging sessions, genuine collaboration, networks formed under shared exhaustion. The most formative competitive experience I had encountered.</p><div class="tl-badge">Most formative hackathon experience — Hacker House Goa</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">September 2024</div><div class="tl-title">Gurgaon Hackathon — First Bounty Won, $400</div><p class="tl-body">A Solidity lending platform with security logic embedded at the contract level. Top 10 from 150+ teams, $400 bounty won. The sponsor company indicated they intended to incorporate the code into their platform.</p><div class="tl-badge">$400 Bounty · Top 10 / 150+ Teams · Logic Adopted by Sponsor</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">Early December 2024</div><div class="tl-title">Bangalore Hackathon — Second Bounty Won, $350</div><p class="tl-body">36-hour hackathon on the Agoric blockchain. A cross-chain lending platform with automatic conversion via orchestration and minimised gas fees. $350 bounty. Two consecutive wins — the pattern was no longer coincidental.</p><div class="tl-badge">$350 Bounty · Cross-Chain Lending with Agoric Orchestration</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">Late December 2024</div><div class="tl-title">0xDay Hackathon — Pondicherry</div><p class="tl-body">Three-day residential event. Security-focused builders and researchers. Real networking, deep conversations, and a community unlike anything at standard competitive events.</p><div class="tl-badge">3-Day Event · 0xDay · Pondicherry · Security Community</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">January 2025</div><div class="tl-title">Shaastra, IIT Madras — Programming Contest Finalist</div><p class="tl-body">Qualified through structured logical reasoning. Standing on the IIT Madras campus as a finalist closed a loop that had been open for years.</p><div class="tl-badge">Finalist · Shaastra Programming Contest · IIT Madras</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div><div class="tl-date">February 2025 — November 2025</div><div class="tl-title">Gardiyan — Full Cybersecurity Immersion</div><p class="tl-body">SOC operations, incident playbook development, KQL detection rules, Azure Sentinel and AWS GuardDuty, live ticket triage. Night-shift rotations. Built Project Horizon and Project Citadel independently. Full-time offer received and declined for a single contractual reason.</p><div class="tl-badge">Full-Time Offer Received · Based on Performance · Feb–Nov 2025</div></div>
-      <div class="tl-item"><div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div><div class="tl-date">April 2026</div><div class="tl-title">Graduated — BTech Cybersecurity · CGPA 7.31</div><p class="tl-body">Completed all eight semesters at Poornima University, Jaipur. CGPA 7.31. Degree certificate issued December 2026. Four years of studying security alongside competing, building, and interning.</p><div class="tl-badge">CGPA 7.31 · Poornima University · Degree Issued December 2026</div></div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div>
+        <div class="tl-date">Class 10 Onwards — Before Everything</div>
+        <div class="tl-title">Kali Linux, Curiosity, and the Beginning</div>
+        <p class="tl-body">Cybersecurity arrived long before any degree or career calculation. Starting from class 10, I was running Kali Linux, executing tools I barely understood, and slowly learning why they worked. Like most who start this way, the early work was script-kiddie territory — other people's commands, info gathering, DoS and DDoS experiments because they were accessible, and the Social Engineering Toolkit because it was fascinating. It was not sophisticated. But it was real, sustained curiosity — and that matters more than sophistication at the start.</p>
+        <div class="tl-tag-row">
+          <span class="tl-tag">Kali Linux</span><span class="tl-tag">Social Engineering Toolkit</span><span class="tl-tag">Info Gathering</span><span class="tl-tag">Self-taught</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div>
+        <div class="tl-date">September 2022</div>
+        <div class="tl-title">Day One — BTech Cybersecurity, Poornima University, Jaipur</div>
+        <p class="tl-body">When the time came to choose a degree, there was no deliberation. Cybersecurity was already the thing. Poornima University, Jaipur. The coursework confirmed what I already suspected — formal education could provide the framework, but the real depth would have to be built outside it. The same quiet question from before resurfaced: <em>if everyone is following the same track, what constitutes a genuine edge?</em></p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">2023 — Early Structured Learning</div>
+        <div class="tl-title">TryHackMe, CTFs, and Understanding the Craft</div>
+        <p class="tl-body">2023 was when the self-teaching became structured. I began working through TryHackMe labs seriously — rooms on Linux fundamentals, web exploitation, network security, privilege escalation. Alongside that, I started participating in online CTF competitions, which forced a different kind of thinking: not just running tools, but reasoning through problems under constraint. I also encountered HackTheBox and PortSwigger's Web Security Academy around this time — platforms that made the difference between red team and blue team tangible, and showed me how attacks work at the mechanism level rather than the surface level.</p>
+        <div class="tl-tag-row">
+          <span class="tl-tag">TryHackMe</span><span class="tl-tag">CTF Competitions</span><span class="tl-tag">HackTheBox</span><span class="tl-tag">PortSwigger Web Academy</span><span class="tl-tag">Web Exploitation</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">March 2024</div>
+        <div class="tl-title">First Hackathon — Udaipur</div>
+        <p class="tl-body">My first hackathon, in Udaipur. I arrived with almost no preparation for the competitive format. What I found was something I had not anticipated — the pace, the focus, the collective intensity of building under a clock. I left with one clear conviction: this environment forces a kind of growth that labs alone cannot replicate.</p>
+        <div class="tl-badge">First competitive build experience</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">May – June 2024</div>
+        <div class="tl-title">TryHackMe Top 1% — and a Real Penetration Test</div>
+        <p class="tl-body">By May and June 2024, the sustained effort on TryHackMe had compounded. I reached the top 1% of the platform globally — a mark that reflects consistent, methodical progression through real offensive and defensive security challenges, not just activity. Around this same period, a friend asked me to conduct a penetration test for his company. I used only free, open-source tools. I produced a structured report. The senior engineers at the company reviewed it and praised the effort and quality — the finding that doing professional-grade work with constrained resources was entirely possible stuck with me.</p>
+        <div class="tl-badge">TryHackMe — Top 1% Global · May–June 2024</div>
+        <div class="tl-tag-row">
+          <span class="tl-tag">Penetration Testing</span><span class="tl-tag">Report Writing</span><span class="tl-tag">Open-Source Tools</span><span class="tl-tag">Recognised by Senior Engineers</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">July 2024</div>
+        <div class="tl-title">Blockchain Hackathon — Jaipur</div>
+        <p class="tl-body">A two-day blockchain-focused hackathon in Jaipur. I was learning the competitive format more than anything else — finding the rhythm, understanding where the gaps between preparation and execution lived.</p>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">4–9 August 2024</div>
+        <div class="tl-title">Hacker House Goa — Selected and Invited</div>
+        <p class="tl-body">Selected through Devfolio by building on the DIAM blockchain. Five days residential in Goa — late-night debugging sessions, genuine collaboration, and networks formed under shared exhaustion. The most formative competitive environment I had been in. Security builders thinking out loud together is a different education from anything a platform or course provides.</p>
+        <div class="tl-badge">Hacker House Goa · Selected via Devfolio · 5 Days Residential</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">September 2024</div>
+        <div class="tl-title">Gurgaon Hackathon — First Bounty Won, $400</div>
+        <p class="tl-body">A Solidity lending platform with security logic embedded at the contract level. Top 10 from 150+ teams. $400 bounty. The sponsor company indicated intent to incorporate the code into their own platform — which is the kind of validation that means more than a prize.</p>
+        <div class="tl-badge">$400 Bounty · Top 10 / 150+ Teams · Logic Adopted by Sponsor</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">Early December 2024</div>
+        <div class="tl-title">Bangalore Hackathon — Second Bounty Won, $350</div>
+        <p class="tl-body">36-hour hackathon on the Agoric blockchain. A cross-chain lending platform with automatic conversion via orchestration and minimised gas fees. $350 bounty. Two consecutive wins — the pattern was no longer coincidental.</p>
+        <div class="tl-badge">$350 Bounty · Cross-Chain Lending · Agoric Orchestration</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">Late December 2024</div>
+        <div class="tl-title">0xDay Hackathon — Pondicherry</div>
+        <p class="tl-body">Three-day residential event. Security-focused builders and researchers in one place. Deep conversations about the field, tooling, and real threats. This was community as much as competition.</p>
+        <div class="tl-badge">0xDay · Pondicherry · Security-Focused Community Event</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">January 2025</div>
+        <div class="tl-title">Shaastra, IIT Madras — Programming Contest Finalist</div>
+        <p class="tl-body">Qualified through structured logical reasoning. Standing on the IIT Madras campus as a finalist closed a loop that had been open for years — proof that the work was accumulating in ways I had not always been able to see day-to-day.</p>
+        <div class="tl-badge">Finalist · Shaastra Programming Contest · IIT Madras</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">February 2025 — The Shift to Blue Team</div>
+        <div class="tl-title">Red to Blue — SOC, Sentinel, and the Full Stack</div>
+        <p class="tl-body">The HackTheBox and PortSwigger years had given me a thorough understanding of how attacks work. February 2025 was when I committed to the other side: blue team, SOC operations, detection engineering. My approach has always been consistent — study the thing, then execute it hands-on. I started learning Microsoft Sentinel, KQL, SOAR automation, UEBA, and cloud security monitoring. Then I implemented them. The shift was not a pivot away from red team knowledge — it was a deployment of it. Understanding how attackers operate makes detection engineering sharper. That is the principle behind everything I have built since.</p>
+        <div class="tl-tag-row">
+          <span class="tl-tag">Microsoft Sentinel</span><span class="tl-tag">KQL</span><span class="tl-tag">SIEM</span><span class="tl-tag">SOAR</span><span class="tl-tag">Detection Engineering</span><span class="tl-tag">Blue Team</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4" fill="var(--paper3)" stroke="var(--rule)" stroke-width="1.5"/></svg></div>
+        <div class="tl-date">May 2025 – November 2025</div>
+        <div class="tl-title">Gardiyan — Full Cybersecurity Immersion</div>
+        <p class="tl-body">SOC operations, incident playbook development, KQL detection rules, Azure Sentinel and AWS GuardDuty, live ticket triage. Night-shift rotations. Built Project Horizon and Project Citadel independently. Full-time offer received and declined for a single contractual reason — the work quality was the reason for the offer.</p>
+        <div class="tl-badge">Full-Time Offer Received · Based on Performance · 9 Months</div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"><svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="4.2" fill="var(--gold-pale)" stroke="var(--gold)" stroke-width="1.2"/></svg></div>
+        <div class="tl-date">April 2026</div>
+        <div class="tl-title">Graduated — BTech Cybersecurity · CGPA 7.31</div>
+        <p class="tl-body">Completed all eight semesters at Poornima University, Jaipur. CGPA 7.31. Four years of studying security alongside competing, building, hacking, and interning. The degree was the container — the real education happened everywhere else.</p>
+        <div class="tl-badge">CGPA 7.31 · Poornima University · December 2026</div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ HACKATHONS ═══════════════════════ -->
+<!-- HACKATHONS -->
 <section id="hackathons" class="sec-pad">
   <div class="container">
     <div class="sec-tag">02 — Hackathons</div>
     <h2 class="sec-head">Built Under<br><em>Pressure</em></h2>
     <div class="hack-grid">
-      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">01</div><div class="hack-name">University Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Udaipur · March 2024</div><p class="hack-desc">My first. Walked in knowing next to nothing — left with the clearest sense of direction I had felt in months.</p></div>
-      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">02</div><div class="hack-name">Blockchain Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Jaipur · July 2024</div><p class="hack-desc">A two-day blockchain event in my home city. Came away understanding the gap was entirely closeable.</p></div>
-      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">03</div><div class="hack-name">Hacker House Goa</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Goa · August 4–9, 2024</div><p class="hack-desc">Five-day residential. Selected by building on DIAM blockchain. Most formative competitive experience I've had.</p></div>
-      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">04</div><div class="hack-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="hack-name">Gurgaon Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Cyber City, Gurgaon · Sept 2024</div><p class="hack-desc">Solidity lending platform. Top 10 from 150+ teams. Logic adopted by sponsor.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M8 1l1.88 3.81 4.2.61-3.04 2.96.72 4.18L8 10.5l-3.76 1.97.72-4.18L1.92 5.42l4.2-.61L8 1z"/></svg>$400 Bounty Won</div></div>
+      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">01</div><div class="hack-name">University Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Udaipur · March 2024</div><p class="hack-desc">My first. Walked in knowing next to nothing about the competitive format — left with the clearest sense of direction I had felt in months.</p></div>
+      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">02</div><div class="hack-name">Blockchain Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Jaipur · July 2024</div><p class="hack-desc">A two-day blockchain event in my home city. Learning the rhythm of competitive builds.</p></div>
+      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">03</div><div class="hack-name">Hacker House Goa</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Goa · August 4–9, 2024</div><p class="hack-desc">Five-day residential. Selected by building on DIAM blockchain. Security builders thinking together — the most formative competitive experience I've had.</p></div>
+      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">04</div><div class="hack-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="hack-name">Gurgaon Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Cyber City, Gurgaon · Sept 2024</div><p class="hack-desc">Solidity lending platform with embedded security logic. Top 10 from 150+ teams. Logic adopted by sponsor company.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M8 1l1.88 3.81 4.2.61-3.04 2.96.72 4.18L8 10.5l-3.76 1.97.72-4.18L1.92 5.42l4.2-.61L8 1z"/></svg>$400 Bounty Won</div></div>
       <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">05</div><div class="hack-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="hack-name">Bangalore Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Bangalore · Early Dec 2024</div><p class="hack-desc">36 hours. Agoric blockchain. Cross-chain lending with automatic conversion and minimised gas costs.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><path d="M8 1l1.88 3.81 4.2.61-3.04 2.96.72 4.18L8 10.5l-3.76 1.97.72-4.18L1.92 5.42l4.2-.61L8 1z"/></svg>$350 Bounty Won</div></div>
-      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">06</div><div class="hack-name">0xDay Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Pondicherry · Late Dec 2024</div><p class="hack-desc">Three-day residential event. Security-focused hackathon. Exceptional learning environment and networking.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><rect x="3" y="8" width="10" height="5" rx="1"/><path d="M8 4v4M5 6l3-4 3 4"/></svg>Learning & Community</div></div>
+      <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">06</div><div class="hack-name">0xDay Hackathon</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>Pondicherry · Late Dec 2024</div><p class="hack-desc">Three-day residential security hackathon. Community of researchers and builders — exceptional conversations and learning.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><rect x="3" y="8" width="10" height="5" rx="1"/><path d="M8 4v4M5 6l3-4 3 4"/></svg>Security Community</div></div>
       <div class="hack-card mag-card spotlight-wrap"><div class="hack-num">07</div><div class="hack-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="20" height="20" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div class="hack-name">Shaastra — IIT Madras</div><div class="hack-loc"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11" color="var(--ink3)"><circle cx="8" cy="7" r="3"/><path d="M8 2C5.24 2 3 4.24 3 7c0 4 5 9 5 9s5-5 5-9c0-2.76-2.24-5-5-5z"/></svg>IIT Madras · January 2025</div><p class="hack-desc">Finals of the Shaastra Programming Contest. Qualified through logical reasoning. Competed on IIT Madras campus as a finalist.</p><div class="hack-win"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" width="11" height="11"><rect x="3" y="8" width="10" height="5" rx="1"/><path d="M8 4v4M5 6l3-4 3 4"/></svg>IIT Madras Finalist</div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ SKILLS ═══════════════════════ -->
+<!-- SKILLS -->
 <section id="skills" class="sec-pad">
   <div class="container">
     <div class="sec-tag">03 — Technical Arsenal</div>
     <h2 class="sec-head">Tools of<br><em>the Trade</em></h2>
     <div class="sk-grid">
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><div class="sk-name">SIEM & Detection</div><div class="sk-tags"><span class="sk-tag">Microsoft Sentinel</span><span class="sk-tag">Splunk</span><span class="sk-tag">ELK Stack</span><span class="sk-tag">KQL</span><span class="sk-tag">Sigma</span><span class="sk-tag">YARA</span><span class="sk-tag">Zeek</span><span class="sk-tag">Defender XDR</span></div></div>
+      <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><div class="sk-name">Offensive / Red Team</div><div class="sk-tags"><span class="sk-tag">TryHackMe</span><span class="sk-tag">HackTheBox</span><span class="sk-tag">PortSwigger</span><span class="sk-tag">Kali Linux</span><span class="sk-tag">Burp Suite</span><span class="sk-tag">Metasploit</span><span class="sk-tag">OSINT</span><span class="sk-tag">Pen Testing</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg><div class="sk-name">DFIR & EDR</div><div class="sk-tags"><span class="sk-tag">Sysmon</span><span class="sk-tag">Velociraptor</span><span class="sk-tag">LimaCharlie</span><span class="sk-tag">Volatility</span><span class="sk-tag">Autopsy</span><span class="sk-tag">IOC Extraction</span><span class="sk-tag">Log Analysis</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg><div class="sk-name">SOAR & Automation</div><div class="sk-tags"><span class="sk-tag">Tines</span><span class="sk-tag">Shuffle</span><span class="sk-tag">Sentinel Playbooks</span><span class="sk-tag">TheHive</span><span class="sk-tag">Cortex</span><span class="sk-tag">API Integrations</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div class="sk-name">Cloud Security</div><div class="sk-tags"><span class="sk-tag">AWS GuardDuty</span><span class="sk-tag">AWS Security Hub</span><span class="sk-tag">CloudTrail</span><span class="sk-tag">Azure Monitor</span><span class="sk-tag">Entra ID</span><span class="sk-tag">Defender for Cloud</span><span class="sk-tag">Terraform</span></div></div>
-      <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/></svg><div class="sk-name">Blockchain & Web3</div><div class="sk-tags"><span class="sk-tag">Solidity</span><span class="sk-tag">Smart Contracts</span><span class="sk-tag">Ethereum</span><span class="sk-tag">Polygon</span><span class="sk-tag">DIAM</span><span class="sk-tag">Agoric</span><span class="sk-tag">Cross-Chain</span><span class="sk-tag">DeFi</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><div class="sk-name">Zero Trust & Identity</div><div class="sk-tags"><span class="sk-tag">Keycloak</span><span class="sk-tag">Pomerium</span><span class="sk-tag">ZTNA / SASE</span><span class="sk-tag">OIDC</span><span class="sk-tag">SAML</span><span class="sk-tag">PKI / TLS</span><span class="sk-tag">MFA</span></div></div>
-      <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><div class="sk-name">Infrastructure</div><div class="sk-tags"><span class="sk-tag">Kubernetes</span><span class="sk-tag">K3s</span><span class="sk-tag">Docker</span><span class="sk-tag">Falco</span><span class="sk-tag">Trivy</span><span class="sk-tag">Prometheus</span><span class="sk-tag">Grafana</span><span class="sk-tag">HashiCorp Vault</span></div></div>
+      <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><div class="sk-name">Infrastructure Security</div><div class="sk-tags"><span class="sk-tag">Kubernetes</span><span class="sk-tag">K3s</span><span class="sk-tag">Docker</span><span class="sk-tag">Falco</span><span class="sk-tag">Trivy</span><span class="sk-tag">Prometheus</span><span class="sk-tag">Grafana</span><span class="sk-tag">HashiCorp Vault</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg><div class="sk-name">Threat Intel & Frameworks</div><div class="sk-tags"><span class="sk-tag">MITRE ATT&CK</span><span class="sk-tag">NIST 800-53</span><span class="sk-tag">MISP</span><span class="sk-tag">OpenCTI</span><span class="sk-tag">AlienVault OTX</span><span class="sk-tag">UEBA</span><span class="sk-tag">Isolation Forest</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><div class="sk-name">Scripting & Languages</div><div class="sk-tags"><span class="sk-tag">Python</span><span class="sk-tag">Bash</span><span class="sk-tag">PowerShell</span><span class="sk-tag">Solidity</span><span class="sk-tag">KQL</span><span class="sk-tag">ESQL</span><span class="sk-tag">Terraform</span></div></div>
       <div class="sk-cat"><svg class="sk-cat-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg><div class="sk-name">Compliance & GRC</div><div class="sk-tags"><span class="sk-tag">NIST 800-53</span><span class="sk-tag">CIS Benchmarks</span><span class="sk-tag">ISO 27001</span><span class="sk-tag">GDPR</span><span class="sk-tag">PCI-DSS</span><span class="sk-tag">DSPM</span><span class="sk-tag">CNAPP</span></div></div>
@@ -1574,7 +1582,7 @@ footer {
   </div>
 </section>
 
-<!-- ═══════════════════════ PROJECTS ═══════════════════════ -->
+<!-- PROJECTS -->
 <section id="projects" class="sec-pad">
   <div class="container">
     <div class="sec-tag">04 — Personal Production Projects</div>
@@ -1582,13 +1590,14 @@ footer {
     <div class="proj-list">
       <div class="proj-card spotlight-wrap"><div><div class="proj-type">Personal Production Project · Independent Build · 2025</div><h3 class="proj-name">Project Horizon</h3><p class="proj-desc">A unified Zero Trust security architecture built entirely on open-source tooling. Five integrated pillars: ZTNA and SASE via Pomerium and Keycloak; automated PII discovery via Apache NiFi and Microsoft Presidio (DSPM); containerised workload security on K3s with Trivy and Falco (CNAPP); a unified XDR pipeline routing Suricata, Wazuh, and Cloud Custodian logs into the ELK Stack; and an insider risk analytics module.</p><div class="proj-tech"><span>Keycloak</span><span>Pomerium</span><span>Apache NiFi</span><span>Microsoft Presidio</span><span>Suricata</span><span>Falco</span><span>Trivy</span><span>ELK Stack</span><span>K3s</span><span>Cloud Custodian</span><span>MinIO</span><span>Python</span></div></div><div class="proj-side"><div class="proj-badge">Zero Trust Platform</div><div class="proj-pillars"><div class="proj-pillar">ZTNA & SASE</div><div class="proj-pillar">DSPM</div><div class="proj-pillar">CNAPP</div><div class="proj-pillar">XDR Pipeline</div><div class="proj-pillar">Insider Risk</div></div></div></div>
       <div class="proj-card spotlight-wrap"><div><div class="proj-type">Personal Production Project · Independent Build · 2025</div><h3 class="proj-name">Project Citadel</h3><p class="proj-desc">A next-generation Security Analytics and Response platform. Wazuh and Elasticsearch monitor Kubernetes clusters. A custom Python and Streamlit UEBA engine applies Isolation Forest models for insider threat detection. An automated SOAR pipeline integrates TheHive, Cortex, MISP, and OpenCTI. Fully mapped to NIST 800-53 and MITRE ATT&CK, validated through live adversary simulations.</p><div class="proj-tech"><span>Wazuh</span><span>Elasticsearch</span><span>TheHive</span><span>Cortex</span><span>MISP</span><span>OpenCTI</span><span>Kubernetes</span><span>Prometheus</span><span>Grafana</span><span>HashiCorp Vault</span><span>Python</span><span>Streamlit</span></div></div><div class="proj-side"><div class="proj-badge">SOC Platform</div><div class="proj-pillars"><div class="proj-pillar">SIEM Ingestion</div><div class="proj-pillar">Custom UEBA</div><div class="proj-pillar">SOAR Engine</div><div class="proj-pillar">NIST 800-53</div><div class="proj-pillar">MITRE ATT&CK</div></div></div></div>
+      <div class="proj-card spotlight-wrap"><div><div class="proj-type">Real-World Engagement · Independent · 2024</div><h3 class="proj-name">Penetration Test — Friend's Company</h3><p class="proj-desc">Conducted a full penetration test for a friend's company using only free, open-source tools. Produced a structured, professional-grade report covering findings, risk ratings, and remediation steps. Reviewed by the company's senior engineers, who acknowledged the quality and thoroughness of the work — confirmation that professional output does not require a professional toolkit.</p><div class="proj-tech"><span>Kali Linux</span><span>Nmap</span><span>Burp Suite (Community)</span><span>Nikto</span><span>Gobuster</span><span>Report Writing</span></div></div><div class="proj-side"><div class="proj-badge">Real Engagement</div><div class="proj-pillars"><div class="proj-pillar">Free Tools Only</div><div class="proj-pillar">Senior Praise</div><div class="proj-pillar">Structured Report</div></div></div></div>
       <div class="proj-card spotlight-wrap"><div><div class="proj-type">Internship Group Project · 2025</div><h3 class="proj-name">Lynis — Feature Extension</h3><p class="proj-desc">As part of an eight-member intern team, developed eight new features for the open-source Lynis security auditing tool. All written in shell scripting, integrated directly into the Lynis codebase, with automated tests. 64 new features shipped across the full intern batch.</p><div class="proj-tech"><span>Bash / Shell</span><span>Lynis</span><span>Unix Security Auditing</span><span>Open Source Contribution</span></div></div><div class="proj-side"><div class="proj-badge">Open Source</div><div class="proj-pillars"><div class="proj-pillar">8 Features Built</div><div class="proj-pillar">Team of 8 Interns</div><div class="proj-pillar">64 Total Shipped</div></div></div></div>
       <div class="proj-card spotlight-wrap"><div><div class="proj-type">Hackathon Build · Gurgaon · September 2024</div><h3 class="proj-name">Blockchain Lending Platform</h3><p class="proj-desc">A smart contract-based lending system written in Solidity, with security logic embedded at the contract level. Top 10 out of 150+ teams, $400 bounty. Sponsor company indicated intent to incorporate the code into their platform.</p><div class="proj-tech"><span>Solidity</span><span>Smart Contracts</span><span>Ethereum</span><span>Web3.js</span><span>Security Auditing</span></div></div><div class="proj-side"><div class="proj-badge">Bounty Winner</div><div class="proj-pillars"><div class="proj-pillar">$400 Prize</div><div class="proj-pillar">Top 10 / 150+</div><div class="proj-pillar">Logic Adopted</div></div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ EXPERIENCE ═══════════════════════ -->
+<!-- EXPERIENCE -->
 <section id="experience" class="sec-pad">
   <div class="container">
     <div class="sec-tag">05 — Professional Experience</div>
@@ -1606,7 +1615,7 @@ footer {
           <div class="exp-role"><div class="exp-role-name">Playbook Development</div><div class="exp-role-desc">Worked on 10+ SOC playbooks covering DoS, DNS tunnelling, phishing, credential dumping, Kerberoasting, and malware outbreaks.</div></div>
           <div class="exp-role"><div class="exp-role-name">SOAR & Automation</div><div class="exp-role-desc">Automated triage workflows using Tines and Shuffle. Built scripts recovering approximately 10 hours of manual enrichment work per week.</div></div>
           <div class="exp-role"><div class="exp-role-name">Cloud Security</div><div class="exp-role-desc">Hands-on across Azure Sentinel, Defender for Cloud, AWS GuardDuty, and AWS Security Hub. Night-shift rotations.</div></div>
-          <div class="exp-role"><div class="exp-role-name">Adversary Simulation</div><div class="exp-role-desc">Simulations across T1003, T1059, T1078, T1047 to validate detection coverage for lateral movement and credential abuse.</div></div>
+          <div class="exp-role"><div class="exp-role-name">Adversary Simulation</div><div class="exp-role-desc">Simulations across T1003, T1059, T1078, T1047 to validate detection coverage for lateral movement and credential abuse — built on years of offensive security study.</div></div>
         </div>
         <div class="exp-nums">
           <div class="exp-num"><div class="exp-num-val">50–100</div><div class="exp-num-label">Weekly Alerts</div></div>
@@ -1634,21 +1643,23 @@ footer {
   </div>
 </section>
 
-<!-- ═══════════════════════ CERTIFICATIONS ═══════════════════════ -->
+<!-- CERTIFICATIONS -->
 <section id="certs" class="sec-pad">
   <div class="container">
     <div class="sec-tag">06 — Credentials & Recognition</div>
     <h2 class="sec-head">Certifications<br><em>& Accolades</em></h2>
     <div class="cert-grid">
+      <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div><div class="cert-name">TryHackMe — Top 1% Global</div><div class="cert-issuer">May–June 2024 · Offensive & Defensive Security</div></div></div>
       <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div><div><div class="cert-name">Oracle Cloud Infrastructure Generative AI</div><div class="cert-issuer">Oracle · Certified Professional</div></div></div>
       <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><div><div class="cert-name">CyberOps Associate</div><div class="cert-issuer">Cisco · Certification</div></div></div>
       <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="cert-name">Shaastra Programming Contest Finalist</div><div class="cert-issuer">IIT Madras · January 2025</div></div></div>
       <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div><div class="cert-name">Blockchain Hackathon Bounty Winner</div><div class="cert-issuer">Gurgaon + Bangalore · $750 Total</div></div></div>
+      <div class="cert-item"><div class="cert-icon-wrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18" height="18" color="var(--gold)"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg></div><div><div class="cert-name">Penetration Test — Senior Engineer Recognised</div><div class="cert-issuer">Real-World Engagement · 2024 · Free Tools</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ RESUME ═══════════════════════ -->
+<!-- RESUME -->
 <section id="resume">
   <div class="resume-bg">RESUME</div>
   <div class="container">
@@ -1656,14 +1667,14 @@ footer {
       <div class="resume-text">
         <div class="resume-tag">07 — Resume</div>
         <div class="resume-title">Download<br><em>My Resume</em></div>
-        <p class="resume-desc">Four years of cybersecurity education, nine months of hands-on SOC work, two bounty-winning hackathons, and two personal production-grade platforms — all in one document.</p>
+        <p class="resume-desc">Cybersecurity since class 10. TryHackMe top 1%. Real penetration test. Nine months of hands-on SOC work. Two production-grade platforms. The journey, compressed to one document.</p>
       </div>
       <div class="resume-actions">
-        <a href="https://drive.usercontent.google.com/uc?id=1byiYZHr8Wfx2_2LvwdTapAwgQb23UPKf&export=download" target="_blank" rel="noopener" class="btn-dl">
+        <a href="https://drive.usercontent.google.com/uc?id=1RuADWQzTVZFFG3nOyg3EPNVNPqt_OZfh&export=download" target="_blank" rel="noopener" class="btn-dl">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download PDF
         </a>
-        <a href="https://drive.google.com/file/d/1byiYZHr8Wfx2_2LvwdTapAwgQb23UPKf/view?usp=sharing" target="_blank" rel="noopener" class="btn-view-resume">
+        <a href="https://drive.google.com/file/d/1RuADWQzTVZFFG3nOyg3EPNVNPqt_OZfh/view" target="_blank" rel="noopener" class="btn-view-resume">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
           View Online
         </a>
@@ -1672,14 +1683,14 @@ footer {
   </div>
 </section>
 
-<!-- ═══════════════════════ CONTACT ═══════════════════════ -->
+<!-- CONTACT -->
 <section id="contact" class="sec-pad">
   <div class="container">
     <div class="sec-tag">08 — Let's Connect</div>
     <h2 class="sec-head">Open to<br><em>Opportunities</em></h2>
     <div class="contact-grid">
       <div class="contact-left">
-        <p>From not knowing what a hackathon was — to winning bounties, building personal production security platforms, competing at IIT Madras, and completing a nine-month internship that resulted in a full-time offer — the journey has been one of consistent, deliberate progression.</p>
+        <p>Cybersecurity was the thing before it was a career. From Kali Linux in school to TryHackMe's top 1%, from writing penetration test reports with free tools to nine months of real SOC operations — every step has been deliberate.</p>
         <p>If you represent a hiring team, a security-focused company, or a project where the work is genuinely challenging — I would welcome the conversation.</p>
         <div class="contact-links">
           <a href="https://www.linkedin.com/in/yash--rathore/" target="_blank" rel="noopener" class="c-link"><svg class="c-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="var(--gold)"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn — Yash Rathore</a>
@@ -1690,23 +1701,18 @@ footer {
       <div class="contact-right">
         <div class="avail-card"><div class="avail-top"><div class="avail-dot"></div><div class="avail-status">Available for Opportunities</div></div><p class="avail-body">Open to SOC analyst roles, detection engineering, cybersecurity engineering positions, and substantive collaborations in security research or tooling development.<br><br>Based in Jaipur, India. Open to relocation and remote-first environments.</p></div>
         <div class="contact-lang reveal"><div class="contact-lang-title">Languages</div><div class="lang-item"><span class="lang-name">English</span><div class="lang-bar"><div class="lang-fill" style="--w:0.95"></div></div><span class="lang-level">Professional</span></div><div class="lang-item"><span class="lang-name">Hindi</span><div class="lang-bar"><div class="lang-fill" style="--w:1.0"></div></div><span class="lang-level">Native</span></div></div>
-        <div class="contact-quote"><p>"If everyone is following the same track — what constitutes a genuine edge?"</p><cite>The question that changed everything</cite></div>
+        <div class="contact-quote"><p>"Cybersecurity was never a decision. It was already the thing."</p><cite>The thread that runs through everything</cite></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
 <footer>
   <div class="foot-copy">© 2026 Yash Rathore · All Rights Reserved</div>
   <div class="foot-note">Built with intent · Hosted on <span>GitHub Pages</span></div>
 </footer>
 
-<!-- ═══════════════════════ JS ═══════════════════════ -->
 <script>
-/* =========================================================
-   THEME SYSTEM
-   ========================================================= */
 const LIGHT_VARIANTS = 4;
 const html = document.documentElement;
 
@@ -1731,160 +1737,93 @@ function updateIcon() {
 }
 updateIcon();
 
-/* =========================================================
-   CUSTOM CURSOR ICONS — one per theme/variant
-   Security + animal themed SVGs (professional)
-   ========================================================= */
 const CURSOR_ICONS = {
-  // Dark theme — Golden Hawk (sharp, security-themed raptor)
   dark: `<svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
     <defs><filter id="glow"><feGaussianBlur stdDeviation="1.5" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
-    <!-- Hawk body -->
     <ellipse cx="19" cy="22" rx="6" ry="8" fill="#c8963c" opacity="0.95"/>
-    <!-- Wings spread -->
     <path d="M3 18 Q10 14 14 20 Q11 22 8 20 Z" fill="#b5883a"/>
     <path d="M35 18 Q28 14 24 20 Q27 22 30 20 Z" fill="#b5883a"/>
-    <!-- Head -->
     <circle cx="19" cy="13" r="5" fill="#c8963c"/>
-    <!-- Beak — sharp -->
     <path d="M19 16 L21 19 L19 18 Z" fill="#8b5e1a"/>
-    <!-- Eye -->
     <circle cx="20.5" cy="12" r="1.5" fill="#1a1612"/>
     <circle cx="21" cy="11.5" r="0.5" fill="#fff" opacity="0.7"/>
-    <!-- Talons -->
     <path d="M16 30 L14 34 M19 31 L19 35 M22 30 L24 34" stroke="#8b5e1a" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-    <!-- Shield on chest -->
     <path d="M16 22 L19 20 L22 22 L22 26 Q19 28 16 26 Z" fill="#1a1612" opacity="0.4"/>
     <path d="M17.5 23 L19 22 L20.5 23 L20.5 25.5 Q19 26.5 17.5 25.5 Z" fill="#c8963c" opacity="0.6"/>
   </svg>`,
-
-  // Variant 0 — Warm Parchment — Fox with lock ear (clever security analyst)
   'light-0': `<svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-    <!-- Fox body -->
     <ellipse cx="19" cy="24" rx="7" ry="6" fill="#b5883a"/>
-    <!-- Fox head -->
     <ellipse cx="19" cy="15" rx="6" ry="5.5" fill="#b5883a"/>
-    <!-- Ears — pointed -->
     <path d="M14 11 L12 5 L17 10 Z" fill="#b5883a"/>
     <path d="M14 11 L13 7 L17 10 Z" fill="#e8d4a8"/>
     <path d="M24 11 L26 5 L21 10 Z" fill="#b5883a"/>
     <path d="M24 11 L25 7 L21 10 Z" fill="#e8d4a8"/>
-    <!-- Face -->
     <ellipse cx="19" cy="17" rx="4" ry="3.5" fill="#f0ebe3"/>
-    <!-- Eyes -->
     <circle cx="17" cy="14" r="1.8" fill="#1a1612"/>
     <circle cx="21" cy="14" r="1.8" fill="#1a1612"/>
     <circle cx="17.5" cy="13.5" r="0.6" fill="white" opacity="0.8"/>
     <circle cx="21.5" cy="13.5" r="0.6" fill="white" opacity="0.8"/>
-    <!-- Nose -->
     <ellipse cx="19" cy="17" rx="1.2" ry="0.8" fill="#6b3a1a"/>
-    <!-- Tail hint -->
     <path d="M26 28 Q30 24 28 20 Q32 22 30 28 Z" fill="#b5883a"/>
     <path d="M27.5 27 Q30 24 29 21 Q31 23 30 27 Z" fill="#f0ebe3"/>
-    <!-- Mini lock badge -->
     <rect x="8" y="27" width="8" height="6" rx="1" fill="#1a1612" opacity="0.75"/>
     <path d="M10 27 Q10 24 12 24 Q14 24 14 27" stroke="#b5883a" stroke-width="1.2" fill="none"/>
     <circle cx="12" cy="30" r="1" fill="#b5883a"/>
     <line x1="12" y1="30" x2="12" y2="32" stroke="#b5883a" stroke-width="0.8"/>
   </svg>`,
-
-  // Variant 1 — Sage/Green — Owl with circuit eyes (wisdom + security)
   'light-1': `<svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-    <!-- Owl body -->
     <ellipse cx="19" cy="25" rx="7" ry="8" fill="#4a6e40"/>
-    <!-- Wings pattern -->
     <path d="M12 22 Q8 18 10 14 Q13 18 14 22 Z" fill="#3a5e30"/>
     <path d="M26 22 Q30 18 28 14 Q25 18 24 22 Z" fill="#3a5e30"/>
-    <!-- Head — round -->
     <circle cx="19" cy="14" r="7" fill="#4a6e40"/>
-    <!-- Ear tufts -->
     <path d="M14 8 L13 4 L16 8 Z" fill="#3a5e30"/>
     <path d="M24 8 L25 4 L22 8 Z" fill="#3a5e30"/>
-    <!-- Face disc -->
     <ellipse cx="19" cy="15" rx="5.5" ry="5" fill="#7a9e6e" opacity="0.5"/>
-    <!-- Circuit-board eyes -->
     <circle cx="16.5" cy="14" r="3" fill="#1c1f1a"/>
     <circle cx="21.5" cy="14" r="3" fill="#1c1f1a"/>
     <circle cx="16.5" cy="14" r="1.8" fill="#7a9e6e"/>
     <circle cx="21.5" cy="14" r="1.8" fill="#7a9e6e"/>
-    <!-- Circuit lines in eyes -->
-    <path d="M15.5 13 L16 14 L15.5 15 M17.5 13 L17 14 L17.5 15" stroke="#c8ddc2" stroke-width="0.4" fill="none"/>
-    <path d="M20.5 13 L21 14 L20.5 15 M22.5 13 L22 14 L22.5 15" stroke="#c8ddc2" stroke-width="0.4" fill="none"/>
     <circle cx="16.5" cy="14" r="0.7" fill="#fff"/>
     <circle cx="21.5" cy="14" r="0.7" fill="#fff"/>
-    <!-- Beak -->
     <path d="M18 17 L19 19 L20 17 Z" fill="#8b6010"/>
-    <!-- Talons -->
     <path d="M15 33 L13 36 M17 34 L16 37 M21 34 L22 37 M23 33 L25 36" stroke="#3a5e30" stroke-width="1.1" stroke-linecap="round" fill="none"/>
   </svg>`,
-
-  // Variant 2 — Dusty Rose — Panther with laser sight (stealth security)
   'light-2': `<svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-    <!-- Body -->
     <ellipse cx="19" cy="25" rx="7" ry="7" fill="#6b3040"/>
-    <!-- Head -->
     <circle cx="19" cy="15" r="6.5" fill="#6b3040"/>
-    <!-- Ears — cat ears -->
     <path d="M13 10 L11 5 L16 9 Z" fill="#6b3040"/>
     <path d="M13.5 10 L12 6.5 L16 9 Z" fill="#b06070" opacity="0.5"/>
     <path d="M25 10 L27 5 L22 9 Z" fill="#6b3040"/>
     <path d="M24.5 10 L26 6.5 L22 9 Z" fill="#b06070" opacity="0.5"/>
-    <!-- Eyes — bright with laser line -->
     <ellipse cx="16.5" cy="14" rx="2.2" ry="2" fill="#b06070"/>
     <ellipse cx="21.5" cy="14" rx="2.2" ry="2" fill="#b06070"/>
     <ellipse cx="16.5" cy="14" rx="0.8" ry="1.8" fill="#1e1618"/>
     <ellipse cx="21.5" cy="14" rx="0.8" ry="1.8" fill="#1e1618"/>
     <circle cx="16" cy="13.5" r="0.4" fill="white" opacity="0.9"/>
     <circle cx="21" cy="13.5" r="0.4" fill="white" opacity="0.9"/>
-    <!-- Laser sight lines -->
     <line x1="23.7" y1="14" x2="32" y2="12" stroke="#cc808e" stroke-width="0.5" opacity="0.6" stroke-dasharray="2,1"/>
-    <!-- Nose -->
     <path d="M17.5 17 L19 18.5 L20.5 17 Q19 16 17.5 17 Z" fill="#3f1e24"/>
-    <!-- Whiskers -->
-    <line x1="11" y1="16" x2="16" y2="17" stroke="#3f1e24" stroke-width="0.5" opacity="0.6"/>
-    <line x1="11" y1="18" x2="16" y2="17.5" stroke="#3f1e24" stroke-width="0.5" opacity="0.6"/>
-    <line x1="27" y1="16" x2="22" y2="17" stroke="#3f1e24" stroke-width="0.5" opacity="0.6"/>
-    <line x1="27" y1="18" x2="22" y2="17.5" stroke="#3f1e24" stroke-width="0.5" opacity="0.6"/>
-    <!-- Tail -->
     <path d="M26 30 Q32 26 30 22 Q34 26 32 33 Z" fill="#6b3040"/>
   </svg>`,
-
-  // Variant 3 — Slate Blue — Wolf with binary eye (pack/network hunter)
   'light-3': `<svg viewBox="0 0 38 38" xmlns="http://www.w3.org/2000/svg">
-    <!-- Body -->
     <ellipse cx="19" cy="25" rx="7.5" ry="7" fill="#2e3444"/>
-    <!-- Head -->
     <ellipse cx="19" cy="15" rx="7" ry="6" fill="#2e3444"/>
-    <!-- Ears — wolf ears, large pointed -->
     <path d="M12 10 L10 3 L16 9 Z" fill="#2e3444"/>
     <path d="M12.5 10 L11 5 L16 9 Z" fill="#5578aa" opacity="0.5"/>
     <path d="M26 10 L28 3 L22 9 Z" fill="#2e3444"/>
     <path d="M25.5 10 L27 5 L22 9 Z" fill="#5578aa" opacity="0.5"/>
-    <!-- Snout -->
     <ellipse cx="19" cy="18" rx="4" ry="3" fill="#3a4460"/>
-    <!-- Eyes — glowing blue -->
     <circle cx="16.5" cy="13" r="2.5" fill="#5578aa"/>
     <circle cx="21.5" cy="13" r="2.5" fill="#5578aa"/>
     <circle cx="16.5" cy="13" r="1.5" fill="#161a22"/>
     <circle cx="21.5" cy="13" r="1.5" fill="#161a22"/>
-    <!-- Binary 0/1 in eyes -->
     <text x="15.5" y="13.8" font-size="2.2" fill="#7098c8" font-family="monospace" opacity="0.9">0</text>
     <text x="20.5" y="13.8" font-size="2.2" fill="#7098c8" font-family="monospace" opacity="0.9">1</text>
-    <!-- Nose -->
     <ellipse cx="19" cy="19" rx="1.5" ry="1" fill="#161a22"/>
-    <!-- Mouth -->
     <path d="M17 21 Q19 22.5 21 21" stroke="#161a22" stroke-width="0.7" fill="none"/>
-    <!-- Teeth hint -->
-    <path d="M18 21.5 L18 23 M19.5 21.5 L19.5 23" stroke="#e8ecf2" stroke-width="0.5" opacity="0.8"/>
-    <!-- Fur texture lines -->
-    <path d="M12 20 Q11 23 12 26" stroke="#3a4460" stroke-width="1" fill="none" opacity="0.5"/>
-    <path d="M26 20 Q27 23 26 26" stroke="#3a4460" stroke-width="1" fill="none" opacity="0.5"/>
   </svg>`
 };
 
-/* =========================================================
-   CURSOR SYSTEM — PC/Laptop only, ZERO LAG
-   ========================================================= */
 const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0) || window.matchMedia('(hover: none)').matches;
 const curWrap = document.getElementById('cur-wrap');
 const curIcon = document.getElementById('cur-icon');
@@ -1894,7 +1833,6 @@ function getCursorKey() {
   if (currentTheme === 'dark') return 'dark';
   return `light-${currentVariant}`;
 }
-
 function updateCursorIcon() {
   const key = getCursorKey();
   curIcon.innerHTML = CURSOR_ICONS[key] || CURSOR_ICONS['dark'];
@@ -1906,34 +1844,22 @@ if (!isTouch) {
   updateCursorIcon();
 
   let mx = window.innerWidth / 2, my = window.innerHeight / 2;
-
-  // *** ZERO LAG — direct position, no lerp, no RAF for cursor ***
   document.addEventListener('mousemove', function(e) {
-    mx = e.clientX;
-    my = e.clientY;
-    // Direct transform — zero latency
+    mx = e.clientX; my = e.clientY;
     curWrap.style.transform = `translate(${mx}px, ${my}px)`;
     curRing.style.left = mx + 'px';
     curRing.style.top = my + 'px';
   }, { passive: true });
 
-  // Hover effect
   document.addEventListener('mouseover', function(e) {
-    if (e.target.closest('a, button, [role="button"]')) {
-      document.body.classList.add('cursor-hover');
-    }
+    if (e.target.closest('a, button, [role="button"]')) document.body.classList.add('cursor-hover');
   });
   document.addEventListener('mouseout', function(e) {
-    if (e.target.closest('a, button, [role="button"]')) {
-      document.body.classList.remove('cursor-hover');
-    }
+    if (e.target.closest('a, button, [role="button"]')) document.body.classList.remove('cursor-hover');
   });
-
-  // Click ripple
   document.addEventListener('mousedown', function() {
     document.body.classList.add('cursor-click');
     setTimeout(() => document.body.classList.remove('cursor-click'), 200);
-    // Spawn ripple on hero
     if (document.elementFromPoint(mx, my)?.closest('#hero')) {
       const ripple = document.createElement('div');
       ripple.className = 'hero-ripple';
@@ -1944,20 +1870,13 @@ if (!isTouch) {
     }
   });
 } else {
-  // Touch device — hide cursor elements completely
   if (curWrap) curWrap.style.display = 'none';
   if (curRing) curRing.style.display = 'none';
 }
 
-// Update cursor on theme change
-function onThemeChange() {
-  updateCursorIcon();
-}
-
 themeToggle.addEventListener('click', () => {
   if (currentTheme === 'light') {
-    currentTheme = 'dark';
-    currentVariant = '0';
+    currentTheme = 'dark'; currentVariant = '0';
   } else {
     currentTheme = 'light';
     currentVariant = String(Math.floor(Math.random() * LIGHT_VARIANTS));
@@ -1966,29 +1885,20 @@ themeToggle.addEventListener('click', () => {
   html.setAttribute('data-variant', currentVariant);
   storeTheme(currentTheme, currentVariant);
   updateIcon();
-  onThemeChange(); // Update cursor icon for new theme
+  updateCursorIcon();
 });
 
-/* =========================================================
-   SCROLL PROGRESS — instant, no transition
-   ========================================================= */
 const prog = document.getElementById('prog');
 window.addEventListener('scroll', () => {
   const p = window.scrollY / (document.body.scrollHeight - window.innerHeight);
   prog.style.width = (p * 100) + '%';
 }, { passive: true });
 
-/* =========================================================
-   NAV SCROLL
-   ========================================================= */
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 50);
 }, { passive: true });
 
-/* =========================================================
-   MOBILE MENU
-   ========================================================= */
 const burger = document.getElementById('burger');
 const mobileMenu = document.getElementById('mobileMenu');
 const menuClose = document.getElementById('menuClose');
@@ -1998,9 +1908,6 @@ mobileMenu.querySelectorAll('.menu-link').forEach(a => {
   a.addEventListener('click', () => mobileMenu.classList.remove('open'));
 });
 
-/* =========================================================
-   STATUS BAR
-   ========================================================= */
 async function fetchStatusBar() {
   try {
     const r = await fetch('https://ipapi.co/json/', { signal: AbortSignal.timeout(5000) });
@@ -2036,9 +1943,6 @@ document.getElementById('sb-close').addEventListener('click', () => {
   document.querySelector('footer').style.paddingBottom = '1.75rem';
 });
 
-/* =========================================================
-   PARTICLE CANVAS
-   ========================================================= */
 const canvas = document.getElementById('c');
 const ctx = canvas.getContext('2d');
 let W, H, pts = [];
@@ -2069,7 +1973,6 @@ class Pt {
 }
 for (let i = 0; i < 80; i++) pts.push(new Pt());
 
-// Cache cursor position for particle interaction (no performance hit)
 let cmx = window.innerWidth / 2, cmy = window.innerHeight / 2;
 document.addEventListener('mousemove', e => { cmx = e.clientX; cmy = e.clientY; }, { passive: true });
 
@@ -2096,10 +1999,7 @@ document.addEventListener('mousemove', e => { cmx = e.clientX; cmy = e.clientY; 
   requestAnimationFrame(frame);
 })();
 
-/* =========================================================
-   TYPED TEXT
-   ========================================================= */
-const roles = ['SOC Analyst','Detection Engineer','Zero Trust Architect','Threat Hunter','Security Researcher'];
+const roles = ['SOC Analyst','Detection Engineer','Zero Trust Architect','Threat Hunter','Penetration Tester','Security Researcher'];
 let ri = 0, ci = 0, del = false, txt = '';
 const typedEl = document.getElementById('typed');
 (function type() {
@@ -2114,16 +2014,13 @@ const typedEl = document.getElementById('typed');
   setTimeout(type, del ? 40 : 75);
 })();
 
-/* =========================================================
-   COUNTER ANIMATION
-   ========================================================= */
 function countUp(el, target) {
   let v = 0;
   const step = target / 55;
   const t = setInterval(() => {
     v += step;
     if (v >= target) { v = target; clearInterval(t); }
-    el.textContent = Math.floor(v) + (target >= 100 ? '+' : '');
+    el.textContent = Math.floor(v) + (target >= 100 ? '+' : target === 1 ? '%' : '');
   }, 18);
 }
 const counterObs = new IntersectionObserver(entries => {
@@ -2137,9 +2034,6 @@ const counterObs = new IntersectionObserver(entries => {
 const statsEl = document.querySelector('.hero-stats');
 if (statsEl) counterObs.observe(statsEl);
 
-/* =========================================================
-   SCROLL REVEAL
-   ========================================================= */
 const revealObs = new IntersectionObserver((entries) => {
   entries.forEach((e, i) => {
     if (e.isIntersecting) setTimeout(() => e.target.classList.add('in'), i * 55);
@@ -2148,9 +2042,6 @@ const revealObs = new IntersectionObserver((entries) => {
 
 document.querySelectorAll('.tl-item, .hack-card, .sk-cat, .proj-card, .cert-item, .reveal').forEach(el => revealObs.observe(el));
 
-/* =========================================================
-   LANGUAGE BAR ANIMATION
-   ========================================================= */
 const langObs = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
@@ -2162,9 +2053,6 @@ const langObs = new IntersectionObserver(entries => {
 }, { threshold: .5 });
 document.querySelectorAll('.contact-lang').forEach(el => langObs.observe(el));
 
-/* =========================================================
-   SPOTLIGHT EFFECT — cards react to mouse
-   ========================================================= */
 document.querySelectorAll('.spotlight-wrap').forEach(el => {
   el.addEventListener('mousemove', function(e) {
     const rect = this.getBoundingClientRect();
@@ -2175,14 +2063,9 @@ document.querySelectorAll('.spotlight-wrap').forEach(el => {
   });
 });
 
-/* =========================================================
-   TEXT SCRAMBLE on hero name hover
-   ========================================================= */
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
 const heroName = document.getElementById('heroName');
-let scrambleTimeout;
 heroName?.addEventListener('mouseenter', () => {
-  clearTimeout(scrambleTimeout);
   const lines = heroName.querySelectorAll('.line span');
   lines.forEach(line => {
     const original = line.textContent;
@@ -2197,20 +2080,6 @@ heroName?.addEventListener('mouseenter', () => {
     }, 40);
   });
 });
-
-/* =========================================================
-   RESIZE HANDLER
-   ========================================================= */
-let resizeTimer;
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer);
-  resizeTimer = setTimeout(() => {
-    document.querySelectorAll('.tl-item, .hack-card, .sk-cat, .proj-card, .cert-item').forEach(el => {
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) el.classList.add('in');
-    });
-  }, 150);
-}, { passive: true });
 </script>
 </body>
 </html>
