@@ -731,7 +731,7 @@ footer{position:relative;z-index:1;background:var(--ink);color:var(--paper);padd
     <h2 class="sec-head">Open to<br><em>Opportunities</em></h2>
     <div class="contact-grid">
       <div class="contact-left">
-        <p>Cybersecurity preceded the career. From Kali Linux in school to TryHackMe's top 1%, from penetration test reports produced with free tools to nine months of operational SOC work — each step was deliberate.</p>
+        <p class="trigger-line" id="triggerLine">Not everything stands out.</p>
         <p>If you represent a hiring team, a security-focused organisation, or a project where the technical challenge is substantive, the conversation is welcome.</p>
         <div class="contact-links">
           <a href="https://www.linkedin.com/in/yash--rathore/" target="_blank" rel="noopener" class="c-link"><svg class="c-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" color="var(--gold)"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>LinkedIn · Yash Rathore</a>
@@ -743,7 +743,7 @@ footer{position:relative;z-index:1;background:var(--ink);color:var(--paper);padd
       <div class="contact-right">
         <div class="avail-card"><div class="avail-top"><div class="avail-dot"></div><div class="avail-status">Available for Opportunities</div></div><p class="avail-body">Open to SOC analyst roles, detection engineering positions, cybersecurity engineering, and substantive collaborations in security research or tooling development.<br><br>Based in Jaipur, India. Open to relocation and remote-first environments.</p></div>
         <div class="contact-lang reveal"><div class="contact-lang-title">Languages</div><div class="lang-item"><span class="lang-name">English</span><div class="lang-bar"><div class="lang-fill" style="--w:0.95"></div></div><span class="lang-level">Professional</span></div><div class="lang-item"><span class="lang-name">Hindi</span><div class="lang-bar"><div class="lang-fill" style="--w:1.0"></div></div><span class="lang-level">Native</span></div></div>
-        <div class="contact-quote"><p>"Cybersecurity was never a decision. It was already the thing."</p><cite>The thread that runs through everything</cite></div>
+        <div class="contact-quote"><p id="dynamic-quote"></p><cite id="dynamic-cite"></cite></div>
       </div>
     </div>
   </div>
@@ -901,6 +901,47 @@ var _ch='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%';
 var _hn=document.getElementById('heroName');
 if(_hn)_hn.addEventListener('mouseenter',function(){_hn.querySelectorAll('.line span').forEach(function(line){var orig=line.textContent,frame=0;var iv=setInterval(function(){line.textContent=orig.split('').map(function(c,i){return i<frame?orig[i]:_ch[Math.floor(Math.random()*_ch.length)]}).join('');frame++;if(frame>orig.length){line.textContent=orig;clearInterval(iv);}},40);});});
 })();
+</script>
+<script>
+  const quotes = [
+    {
+      text: "What we see depends mainly on what we look for.",
+      author: "John Lubbock"
+    },
+    {
+      text: "Most of the mistakes in thinking are inadequacies of perception.",
+      author: "Edward de Bono"
+    }
+  ];
+
+  const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+  document.getElementById("dynamic-quote").textContent = "“" + randomQuote.text + "”";
+  document.getElementById("dynamic-cite").textContent = "— " + randomQuote.author;
+</script>
+<script>
+  const line = document.getElementById("triggerLine");
+  const text = "Not everything stands out.";
+  let index = 0;
+
+  function typeEffect() {
+    if (index < text.length) {
+      line.textContent += text[index];
+      index++;
+      setTimeout(typeEffect, 40); // slightly faster = smoother
+    }
+  }
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting) {
+      setTimeout(() => {
+        line.textContent = "";
+        typeEffect();
+      }, 1000); // delay
+    }
+  });
+
+  observer.observe(line);
 </script>
 </body>
 </html>
